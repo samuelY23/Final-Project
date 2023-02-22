@@ -1,5 +1,6 @@
 # Final-Project
 
-#Contributers 
+#Contributers
 ** Samuel Yeboah sy433**
 ** Setor Kudiabor kek265 **
+** Adam Issah abi6 **
