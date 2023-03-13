@@ -1,4 +1,3 @@
-
 type t
 (** The abstract type representing the account *)
 
