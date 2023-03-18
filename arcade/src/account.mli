@@ -16,7 +16,7 @@ val sufficient : int -> t -> bool
 (** [sufficient amt acc]  a true if [amt] is greater than or equal to the amount in [acc] *)
 
 val balance : t -> int
-(** [balance acc] returns returns the amount of money in [acc]*)
+(** [balance acc] returns the amount of money in [acc]*)
 
 val prob_lst : int list
 (** [prob_data] is a list of 100 ints, fifty of them which will be 0, 30 of them will be between 1 and 74 and 20 of them will be between 25 and 100. This is meant to signify the wheel spinner that spins to pick a random gift. The players are able to pick an amount to deposit in their bank account *)
