@@ -23,3 +23,7 @@ val next_players : t -> player list
 val reverse : t -> player list
 (** [reverse t] reverses the current next players given some uses a reverse car
     list current state *)
+val skip : t -> player list
+    (** [skip t] skips the next player *)
+  
+

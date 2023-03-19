@@ -5,6 +5,8 @@ type card_type =
   | Wild
   | Plus2
   | Plus4
+  | Reverse
+  | Skip
 
 exception InvalidMove
 
