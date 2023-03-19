@@ -22,7 +22,7 @@ val sufficient : int -> t -> bool
 val balance : t -> int
 (** [balance acc] returns returns the amount of money in [acc]*)
 
-val prob_data : int list
+val prob_lst : int list
 (** [prob_data] is a list of 100 ints, fifty of them which will be 0, 30 of them
     will be between 1 and 74 and 20 of them will be between 25 and 100. This is
     meant to signify the wheel spinner that spins to pick a random gift. The

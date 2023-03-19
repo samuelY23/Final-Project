@@ -41,6 +41,6 @@ let shuffle d =
   let sond = List.sort compare nd in
   List.map snd sond
 
-let prob_data =
+let prob_lst =
   prob_d 50 0 [] |> prob_d 20 10 |> prob_d 15 20 |> prob_d 10 50 |> prob_d 5 100
   |> shuffle
