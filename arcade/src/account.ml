@@ -12,14 +12,16 @@ let account s = { name = s; amount = 0 }
     account*)
 let add amt acc = { name = acc.name; amount = acc.amount + amt }
 
-(** [deduct amt acc] is the account returned after [amt] has been deducted to
-    the account. Requires [amt] is lesser than the amount in the account. Raises
-    [Insufficient Funds] if it is not greater than or equal to.*)
-let deduct amt acc = { name = acc.name; amount = acc.amount - amt }
-
 (** [sufficient amt acc] a true if [amt] is greater than or equal to the amount
     in [acc] *)
 let sufficient amt (acc : t) = acc.amount >= amt
+
+(** [deduct amt acc] is the account returned after [amt] has been deducted to
+    the account. Requires [amt] is lesser than the amount in the account. Raises
+    [Insufficient Funds] if it is not greater than or equal to.*)
+let deduct amt acc =
+  if sufficient amt acc then { name = acc.name; amount = acc.amount - amt }
+  else raise (InsufficientFunds amt)
 
 (** [balance acc] returns returns the amount of money in [acc]*)
 let balance acc = acc.amount
@@ -39,4 +41,6 @@ let shuffle d =
   let sond = List.sort compare nd in
   List.map snd sond
 
-let prob_lst = prob_d 50 0 [] |> prob_d 20 10 |> prob_d 15 20 |> prob_d 10 50 |> prob_d 5 100 |> shuffle 
+let prob_data =
+  prob_d 50 0 [] |> prob_d 20 10 |> prob_d 15 20 |> prob_d 10 50 |> prob_d 5 100
+  |> shuffle
