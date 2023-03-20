@@ -12,7 +12,11 @@ type piece =
   | White of char
   | Black of char
 
-open ANSITerminal
+let default_fen = raise (Failure "Unimplemented")
+let current_state = raise (Failure "Unimplemented")
+let current_turn = raise (Failure "Unimplemented")
+let p1_score = raise (Failure "Unimplemented")
+let p2_score = raise (Failure "Unimplemented")
 
 let default_fen = "○1○1○1○1○/1○1○1○1○/8/8/8/8/●1●1●1●1/1●1●1●1●"
 
