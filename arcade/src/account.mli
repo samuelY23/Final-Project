@@ -20,7 +20,7 @@ val sufficient : int -> t -> bool
     in [acc] *)
 
 val balance : t -> int
-(** [balance acc] returns returns the amount of money in [acc]*)
+(** [balance acc] returns the amount of money in [acc]*)
 
 val prob_lst : int list
 (** [prob_data] is a list of 100 ints, fifty of them which will be 0, 30 of them
