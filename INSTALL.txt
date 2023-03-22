@@ -1,0 +1,15 @@
+Checkers Installation Guide
+
+reqs: linux/macos/windows
+opam
+git
+
+
+1.clone project repo or unzip the file
+git clone https://github.com/samuelY23/Final-Project.git
+
+2. once you unzip or clone repo run 
+
+run dune build
+
+troubleshooting: if you encounter any other errors 
