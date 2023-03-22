@@ -12,13 +12,7 @@ type piece =
   | White of char
   | Black of char
 
-let default_fen = raise (Failure "Unimplemented")
-let current_state = raise (Failure "Unimplemented")
-let current_turn = raise (Failure "Unimplemented")
-let p1_score = raise (Failure "Unimplemented")
-let p2_score = raise (Failure "Unimplemented")
-
-let default_fen = "○1○1○1○1○/1○1○1○1○/8/8/8/8/●1●1●1●1/1●1●1●1●"
+let default_fen = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/1o1o1o1o/o1o1o1o1/1o1o1o1o|}
 
 let is_digit = function
   | '1' .. '9' -> true
@@ -44,7 +38,7 @@ let rec make_board n fen =
   let fen_state = String.split_on_char '/' fen in
   match n with
   | 0 ->
-      ANSITerminal.print_string [ ANSITerminal.red ]
+      print_endline
         "  +---+---+---+---+---+---+---+---+\n    a   b   c   d   e   f   g   h"
   | f ->
       print_endline
@@ -60,3 +54,11 @@ let board_init =
     turn = Player_1 0;
     players = [ Player_1 0; Player_2 0 ];
   }
+
+let default_fen = raise (Failure "Unimplemented")
+let current_state = raise (Failure "Unimplemented")
+let current_turn = raise (Failure "Unimplemented")
+let p1_score = raise (Failure "Unimplemented")
+let p2_score = raise (Failure "Unimplemented")
+let update_boardstate = raise (Failure "Unimplemented")
+
