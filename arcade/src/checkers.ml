@@ -55,10 +55,12 @@ let board_init =
     players = [ Player_1 0; Player_2 0 ];
   }
 
-let default_fen = raise (Failure "Unimplemented")
-let current_state = raise (Failure "Unimplemented")
-let current_turn = raise (Failure "Unimplemented")
-let p1_score = raise (Failure "Unimplemented")
-let p2_score = raise (Failure "Unimplemented")
-let update_boardstate = raise (Failure "Unimplemented")
+let update_boardstate s = raise (Failure "Unimplemented")
 
+(** let current_state: string, undefined for now *)
+
+(**let p2_score: int undefined for now *)
+
+(**let p1_score: int undefined for now *)
+
+(**let current_turn :string undefined for now*)

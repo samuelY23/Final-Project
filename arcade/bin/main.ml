@@ -1,13 +1,12 @@
 (** [play_game f] starts the adventure in file [f]. *)
 let play_game f = raise (Failure "Unimplemented: Main.play_game")
+
 let data_dir_prefix = "data" ^ Filename.dir_sep
 
 (** [main ()] prompts for the game to play, then starts it. *)
 let main () =
   print_string "> ";
-  match read_line () with
-  | exception End_of_file -> ()
-  | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json")
+  Game.Checkers.make_board 8 Game.Checkers.default_fen
 
 (* Execute the game engine. *)
 let () = main ()
