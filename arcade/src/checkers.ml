@@ -148,10 +148,7 @@ let board_init =
     players = [ Player_1 0; Player_2 0 ];
   }
 
-(* let current_state = raise (Failure "Unimplemented") let current_turn = raise
-   (Failure "Unimplemented") let p1_score = raise (Failure "Unimplemented") let
-   p2_score = raise (Failure "Unimplemented") let update_boardstate = raise
-   (Failure "Unimplemented") *)
+
 
 (*------------------------------------*)
 (*Movement*)
@@ -198,3 +195,9 @@ let rec layout_to_fen fen layout =
          |> pairs_to_string)
         ^ "/")
         (string_to_stringlist (String.sub s 8 (String.length s - 8)))
+
+
+ (* let current_state = raise (Failure "Unimplemented") let current_turn = raise
+   (Failure "Unimplemented") let p1_score = raise (Failure "Unimplemented") let
+   p2_score = raise (Failure "Unimplemented") let update_boardstate = raise
+   (Failure "Unimplemented")  *)
