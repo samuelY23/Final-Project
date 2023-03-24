@@ -53,5 +53,8 @@ let main () =
   | exception End_of_file -> ()
   | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json") in print_string "placeholder"
 
+  print_string "> ";
+  Game.Checkers.make_board 8 Game.Checkers.default_fen
+
 (* Execute the game engine. *)
 let () = main ()

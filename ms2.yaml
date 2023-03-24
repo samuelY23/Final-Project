@@ -1,0 +1,30 @@
+---
+group:
+  - name: Setor Kudiabor
+    netid: kek265
+  - name: Adam Issah
+    netid: abi6
+  - name: Samuel Yeboah
+    netid: sy433
+  - name: Oluebube Chukwubuikem
+    netid: ohc9
+
+pm:
+  name: Allan Chong
+  netid: ac965
+
+publish: false
+
+title: "Arcade"
+
+git-repo: "https://github.com/samuelY23/Final-Project"
+
+demo-video-url: ""
+
+desc: >
+  Looking for a fun and challenging way to pass the time? 
+  Look no further than our OCaml arcade, featuring two classic games: Connect 4 and Checkers! 
+  With the ability to create your own account, you can track your progress and 
+  challenge yourself to improve your skills. Whether you're a seasoned pro or a beginner,
+  our arcade has something for everyone. So why wait? Start playing today and see if you have
+  what it takes to be the ultimate champion!

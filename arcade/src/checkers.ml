@@ -150,6 +150,7 @@ let board_init =
 
 
 
+
 (*------------------------------------*)
 (*Movement*)
 let layout_index pos =
@@ -201,3 +202,13 @@ let rec layout_to_fen fen layout =
    (Failure "Unimplemented") let p1_score = raise (Failure "Unimplemented") let
    p2_score = raise (Failure "Unimplemented") let update_boardstate = raise
    (Failure "Unimplemented")  *)
+let update_boardstate s = raise (Failure "Unimplemented")
+
+(** let current_state: string, undefined for now *)
+
+(**let p2_score: int undefined for now *)
+
+(**let p1_score: int undefined for now *)
+
+(**let current_turn :string undefined for now*)
+

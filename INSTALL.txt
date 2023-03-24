@@ -1,0 +1,20 @@
+Checkers Installation Guide
+
+Reqs: linux/macos/windows
+Opam
+Git
+
+INSTRUCTIONS TO CLONE REPO / INSTALL PROJECT
+
+1. Clone project repo or unzip the file
+git clone https://github.com/samuelY23/Final-Project.git
+
+2. Once you unzip or clone repo run 
+run dune build
+
+IN ORDER TO DOWNLOAD OPAM
+
+Please follow the 3110 instructions linked here
+https://cs3110.github.io/textbook/chapters/preface/install.html
+
+Troubleshooting: If you encounter any other errors 
