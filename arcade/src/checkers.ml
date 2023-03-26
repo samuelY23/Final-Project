@@ -135,7 +135,9 @@ let rec make_board n fen =
         "  +---+---+---+---+---+---+---+---+\n    a   b   c   d   e   f   g   h"
   | f ->
       print_endline
-        ("  +---+---+---+---+---+---+---+---+\n" ^ string_of_int n ^ " "
+        ("  +---+---+---+---+---+---+---+---+\n"
+        ^ string_of_int (9 - n)
+        ^ " "
         ^ row_builder (string_to_list (List.nth fen_state (8 - n))));
       make_board (n - 1) fen
 
@@ -148,9 +150,6 @@ let board_init =
     players = [ Player_1 0; Player_2 0 ];
   }
 
-
-
-
 (*------------------------------------*)
 (*Movement*)
 let layout_index pos =
@@ -161,7 +160,7 @@ let replace l src sink a =
   List.mapi
     (fun i x ->
       match i with
-      | i -> if i = src then "" else if i = sink then a else x)
+      | i -> if i = src then ' ' else if i = sink then a else x)
     l
 
 let make_move start dest piece layout =
@@ -169,7 +168,7 @@ let make_move start dest piece layout =
   let dest_idx = layout_index dest in
   replace layout start_idx dest_idx piece
 
-let join l = List.filter (fun s -> s <> "") l |> String.concat ""
+let join l = String.of_seq (List.to_seq l)
 
 let rec to_run_length (lst : char list) : (int * char) list =
   match lst with
@@ -186,29 +185,56 @@ let rec pairs_to_string pairs =
       (if l = ' ' then string_of_int n else repeat (String.make 1 l) n)
       ^ pairs_to_string h
 
-let rec layout_to_fen fen layout =
-  match join layout with
-  | "" -> String.sub fen 0 64
+let rec layout_to_fen_helper fen layout =
+  match layout with
+  | [] -> fen
   | s ->
-      layout_to_fen
+      let w = join s in
+      layout_to_fen_helper
         (fen
-        ^ (String.sub s 0 8 |> string_to_list |> to_run_length
+        ^ (String.sub w 0 8 |> string_to_list |> to_run_length
          |> pairs_to_string)
         ^ "/")
-        (string_to_stringlist (String.sub s 8 (String.length s - 8)))
+        (if String.length w = 8 then []
+        else string_to_list (String.sub w 8 ((w |> String.length) - 8)))
 
+let layout_to_fen layout =
+  let fen = layout_to_fen_helper "" layout in
+  String.sub fen 0 (String.length fen - 1)
 
- (* let current_state = raise (Failure "Unimplemented") let current_turn = raise
+(* let current_state = raise (Failure "Unimplemented") let current_turn = raise
    (Failure "Unimplemented") let p1_score = raise (Failure "Unimplemented") let
    p2_score = raise (Failure "Unimplemented") let update_boardstate = raise
-   (Failure "Unimplemented")  *)
-let update_boardstate s = raise (Failure "Unimplemented")
+   (Failure "Unimplemented") *)
+let new_boardstate start dest piece old_boardstate =
+  let old_layout =
+    match old_boardstate.state with
+    | _, b -> b
+  in
+  let new_layout = make_move start dest piece old_layout in
+  {
+    state = (new_layout |> layout_to_fen, new_layout);
+    turn =
+      (match old_boardstate.turn with
+      | Player_1 s -> Player_2 0
+      | Player_2 b -> Player_1 0);
+    players = [ Player_1 0; Player_2 0 ];
+  }
 
-(** let current_state: string, undefined for now *)
+let current_state_fen brd =
+  match brd.state with
+  | a, _ -> a
 
-(**let p2_score: int undefined for now *)
+let current_state_layout brd =
+  match brd.state with
+  | _, b -> b
 
-(**let p1_score: int undefined for now *)
+let player_score plyr =
+  match plyr with
+  | Player_1 s -> s
+  | Player_2 m -> m
 
-(**let current_turn :string undefined for now*)
+let current_turn brd = brd.turn
 
+let next_piece curr =
+  if curr = 'X' then 'O' else if curr = 'O' then 'X' else ' '
