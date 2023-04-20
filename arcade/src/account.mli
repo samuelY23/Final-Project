@@ -27,3 +27,6 @@ val prob_lst : int list
     will be between 1 and 74 and 20 of them will be between 25 and 100. This is
     meant to signify the wheel spinner that spins to pick a random gift. The
     players are able to pick an amount to deposit in their bank account *)
+
+val get_init_amount : int -> int
+(** [get_init_amount pick] returns a random initial amount for a player to start with. *)
