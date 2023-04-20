@@ -26,12 +26,7 @@ let rec checkers_gameloop (board : Checkers.board) win piece =
       Checkers.(board_aftermove |> current_state_fen |> make_board 8);
       checkers_gameloop board_aftermove false new_piece
 
-(** [create_account name] creates an account for a user with an initial amount
-    of $0 *)
-
-(* let temp1 name = 
-  Account.account name *)
-
+(** [account_retriever acct] returns an account *)
 let account_retriever acct = 
   match acct with 
   | None -> failwith "No account"
@@ -41,11 +36,26 @@ let account_retriever acct =
 let change_amount amt acc = 
   Account.add amt acc
 
+(** [create_account name] creates an account for a user with an initial amount
+    of $0 *)
 let create_account name =
   let account = Account.account name in 
   player_accounts.data.(player_accounts.size) <- Some account;
   player_accounts.size <- player_accounts.size + 1;
   account
+
+let print_number_range () = 
+  print_string "\nPlease pick a number between 1 and 100\n";
+  print_string "> "
+
+let congrats_message name = 
+  print_string
+  ("Congrats, " ^ name
+ ^ " your account has been created. You have an amount of $0 to start\n"
+  )
+(* let change_amount_in_arr number_pick player_accounts idx =  
+  player_accounts.data.(0) <- 
+  Some ((Account.add (Account.get_init_amount number_pick) (account_retriever (player_accounts.data.(idx))))) *)
 
 
 (** [play_game f] starts the adventure in file [f]. *)
@@ -64,12 +74,8 @@ let main () =
           print_string "> ";
           let name = read_line () in
           let account = create_account name in
-          print_string
-            ("Congrats, " ^ name
-           ^ " your account has been created. You have an amount of $0 to start"
-            );
-          print_string "\nPlease pick a number between 1 and 100\n";
-          print_string "> ";
+          congrats_message name;
+          print_number_range ();
           let number_pick = int_of_string (read_line ()) in 
           let new_account = 
           (Account.add (Account.get_init_amount number_pick) (account_retriever (player_accounts.data.(0)))) in 
@@ -81,12 +87,8 @@ let main () =
           let name = read_line () in
           let () = print_string ("");
           let account1 = create_account name in
-          print_string
-            ("Congrats, " ^ name
-           ^ " your account has been created. You have an amount of $0 to start\n"
-            );
-          print_string "\nPlease pick a number between 1 and 100\n";
-          print_string "> ";
+          congrats_message name ;
+          print_number_range ();
           let number_pick = int_of_string (read_line ()) in 
           let new_account = 
           (Account.add (Account.get_init_amount number_pick) (account_retriever (player_accounts.data.(0)))) in 
@@ -96,12 +98,8 @@ let main () =
           print_string "\n\nPlayer 2, please enter your name\n";
           let name = read_line () in
           let account = create_account name in
-          print_string
-            ("Congrats, " ^ name
-           ^ " your account has been created. You have an amount of $0 to start"
-            );
-            print_string "\nPlease pick a number between 1 and 100\n";
-            print_string "> ";
+          congrats_message name ;
+            print_number_range ();
             let number_pick2 = int_of_string (read_line ()) in 
             let new_account2 = 
               (Account.add (Account.get_init_amount number_pick2) (account_retriever (player_accounts.data.(1)))) in 

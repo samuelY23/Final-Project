@@ -45,9 +45,4 @@ let prob_lst =
   prob_d 50 0 [] |> prob_d 20 10 |> prob_d 15 20 |> prob_d 10 50 |> prob_d 5 100
   |> shuffle
 
-(* let rec initial_amount pick prob_lst =
-  match prob_lst with
-  | [] -> failwith "Invalid number choice"
-  | h :: t -> if pick = 1 then h else initial_amount (pick - 1) t *)
-
-let get_init_amount pick = List.nth prob_lst (pick-1)
+let get_init_amount pick = List.nth prob_lst (pick - 1)
