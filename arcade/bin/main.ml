@@ -8,23 +8,39 @@ type 'a player_account = {
 let player_accounts : 'a player_account = { data = Array.make 2 None; size = 0 }
 let data_dir_prefix = "data" ^ Filename.dir_sep
 
+(* let rec checkers_gameloop (board : Checkers.board) win piece = match win with
+   | true -> () | false -> print_string ("\n player " ^ String.make 1 piece ^
+   "'s turn"); let start = print_string "\n>"; read_line () in let dest =
+   print_string "\n>"; read_line () in let new_piece = Checkers.next_piece piece
+   in let board_aftermove = Checkers.new_boardstate start dest piece board in
+   Checkers.(board_aftermove |> current_state_fen |> make_board 8);
+   checkers_gameloop board_aftermove false new_piece *)
+
 let rec checkers_gameloop (board : Checkers.board) win piece =
   match win with
   | true -> ()
-  | false ->
+  | false -> (
       print_string ("\n player " ^ String.make 1 piece ^ "'s turn");
-      let start =
+      let move_input =
         print_string "\n>";
         read_line ()
       in
-      let dest =
-        print_string "\n>";
-        read_line ()
+
+      let move =
+        Command.parse move_input (Checkers.current_state_layout board) piece
       in
-      let new_piece = Checkers.next_piece piece in
-      let board_aftermove = Checkers.new_boardstate start dest piece board in
-      Checkers.(board_aftermove |> current_state_fen |> make_board 8);
-      checkers_gameloop board_aftermove false new_piece
+      match move with
+      | Move t ->
+          let start = List.nth t 0 in
+          let dest = List.nth t 1 in
+          let new_piece = Checkers.next_piece piece in
+          let board_aftermove =
+            Checkers.new_boardstate start dest piece board
+          in
+          Checkers.(board_aftermove |> current_state_fen |> make_board 8);
+          checkers_gameloop board_aftermove false new_piece
+      | Capture t -> failwith ""
+      | Forfeit -> failwith "")
 
 (** [create_account name] creates an account for a user with an initial amount
     of $0 *)

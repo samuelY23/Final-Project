@@ -23,7 +23,7 @@ type action = string list
     verb and possibly an object phrase. Invariant: the [action] carried by [Go]
     must not be empty. *)
 type command =
-  | Go of action
+  | Move of action
   | Capture of action
   | Forfeit
 
@@ -33,7 +33,7 @@ exception InvalidMove
 exception InvalidInput
 (** Raised when bad input , wrong input format or nonexisting cord*)
 
-val parse : string -> command
+val parse : string -> char list -> char -> command
 (** [parse str] parses a player's input into a [command], as follows. The first
     word (i.e., consecutive sequence of non-space characters) of [str] becomes
     the verb. The rest of the words, if any, become the object phrase. Examples:
