@@ -51,7 +51,7 @@ let print_number_range () =
 let congrats_message name = 
   print_string
   ("Congrats, " ^ name
- ^ " your account has been created. You have an amount of $0 to start\n"
+ ^ " your account has been created. You have an amount of $10 to start\n"
   )
 (* let change_amount_in_arr number_pick player_accounts idx =  
   player_accounts.data.(0) <- 
@@ -112,6 +112,12 @@ let main () =
         print_string "\n\nSelect a game?\n- checkers\n- uno\n- connect4\n>";
         let game_choice = read_line () in
         if game_choice = "checkers" then (
+          let new_account3 = 
+            (Account.deduct (10) (account_retriever player_accounts.data.(0))) in 
+            player_accounts.data.(0) <- Some new_account3;
+          let new_account4 = 
+            (Account.deduct (10) (account_retriever player_accounts.data.(1))) in 
+            player_accounts.data.(1) <- Some new_account4;
           print_string "\n\nWelcome to checkers, -10pt per player\n";
           print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
           Checkers.(board_init |> current_state_fen |> make_board 8);
