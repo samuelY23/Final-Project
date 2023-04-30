@@ -1,3 +1,5 @@
+open Util
+
 type player =
   | Player_1 of int
   | Player_2 of int
@@ -11,6 +13,8 @@ type board = {
 type piece =
   | White of char
   | Black of char
+
+
 
 let default_fen = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/1o1o1o1o/o1o1o1o1/1o1o1o1o|}
 
@@ -152,9 +156,6 @@ let board_init =
 
 (*------------------------------------*)
 (*Movement*)
-let layout_index pos =
-  (8 * (int_of_string (String.make 1 (String.get pos 1)) - 1))
-  + (int_of_char (String.get pos 0) - Char.code 'a')
 
 let replace l src sink a =
   List.mapi
@@ -164,8 +165,8 @@ let replace l src sink a =
     l
 
 let make_move start dest piece layout =
-  let start_idx = layout_index start in
-  let dest_idx = layout_index dest in
+  let start_idx = Util.layout_index start in
+  let dest_idx = Util.layout_index dest in
   replace layout start_idx dest_idx piece
 
 let join l = String.of_seq (List.to_seq l)
