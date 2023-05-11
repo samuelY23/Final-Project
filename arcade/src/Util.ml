@@ -1,4 +1,6 @@
 (* takes in a pos [a7] and return an int index in layout*)
+let pawns = ('X', 'O')
+
 let is_digit = function
   | '1' .. '9' -> true
   | _ -> false
@@ -107,15 +109,26 @@ let is_diagonal_adj (pos : string) (dest : string) (piece : char) (stride : int)
     if piece = 'X' then (lettnum_to_pos left down, lettnum_to_pos right down)
     else (lettnum_to_pos left up, lettnum_to_pos right up)
   in
+  print_endline (dest ^ fst reachable ^ snd reachable);
   dest = fst reachable || dest = snd reachable
 
-let is_valid_move (move : string list) piece layout (stride : int) =
+let is_valid_move (move : string list) piece layout (stride : int) occupant =
   let src = List.nth move 0 in
   let sink = List.nth move 1 in
-
+  let lstart = Char.code (String.get src 0) in
+  let nstart = int_of_string (String.sub src 1 1) in
+  let ldest = Char.code (String.get sink 0) in
+  let ndest = int_of_string (String.sub sink 1 1) in
+  let capture_pos =
+    String.make 1 ((lstart + ldest) / 2 |> Char.chr)
+    ^ string_of_int ((nstart + ndest) / 2)
+  in
   on_board src && on_board sink
-  && is_diagonal_adj src sink piece stride
-  && List.nth layout (layout_index sink) = ' '
+  &&
+  if occupant <> ' ' then is_diagonal_adj src capture_pos piece stride
+  else
+    is_diagonal_adj src sink piece stride
+    && List.nth layout (layout_index sink) = occupant
 
 let rec pair_of_moves moves pairs =
   match moves with
@@ -127,10 +140,10 @@ let rec pair_of_moves moves pairs =
 let is_valid_move_chain (move : string list) layout = true
 
 let is_valid_capture move piece layout =
-  let s = List.nth move 0 in
-  let lettercode = Char.code (String.get s 0) in
-  let number = int_of_string (String.sub s 1 1) in
-  is_valid_move move piece layout 2 && is_valid_move_chain move layout
+  let other = if piece = fst pawns then snd pawns else fst pawns in
+  print_endline (String.make 1 piece ^ " --- " ^ String.make 1 other);
+  is_valid_move move piece layout 2 ' '
+  && is_valid_move move piece layout 1 other
 
 (* let chain = pair_of_moves move [] in match chain with | [] -> | h :: t ->
    is_valid_move h piece layout 2 *)

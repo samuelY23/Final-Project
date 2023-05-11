@@ -38,7 +38,7 @@ val parse : string -> char list -> char -> command
     word (i.e., consecutive sequence of non-space characters) of [str] becomes
     the verb. The rest of the words, if any, become the object phrase. Examples:
 
-    - [parse "    go   A4   A5   "] is [Go \["A4"; "A5"\]]
+    - [parse "    move A4 A5   "] is [Move \["A4"; "A5"\]]
     - [parse "    capture   A4   A5   "] is [Capture \["A4"; "A5"\]] (**checks
       if is valid capture*)
     - [parse "forfeit"] is [Forfeit].
