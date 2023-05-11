@@ -14,5 +14,6 @@ val row_builder : char list -> string
 val layout_index : string -> int
 val on_board : string -> bool
 val is_diagonal_adj : string -> string -> char -> int -> bool
-val is_valid_move : string list -> char -> char list -> int -> bool
+val is_valid_move : string list -> char -> char list -> int -> char -> bool
+val is_valid_capture : string list -> char -> char list -> bool
 val is_valid_move_chain : string list -> char list -> bool

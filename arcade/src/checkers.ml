@@ -120,6 +120,20 @@ let make_move start dest piece layout =
   let dest_idx = Util.layout_index dest in
   Util.replace layout start_idx dest_idx piece
 
+let make_capture start dest piece layout =
+  let lstart = Char.code (String.get start 0) in
+  let nstart = int_of_string (String.sub start 1 1) in
+  let ldest = Char.code (String.get dest 0) in
+  let ndest = int_of_string (String.sub dest 1 1) in
+  let captured_pos =
+    String.make 1 ((lstart + ldest) / 2 |> Char.chr)
+    ^ string_of_int ((nstart + ndest) / 2)
+  in
+  print_endline captured_pos;
+  let aftermove = make_move start dest piece layout in
+  let captured_idx = Util.layout_index captured_pos in
+  Util.replace aftermove captured_idx (-1) piece
+
 let layout_to_fen layout =
   let fen = Util.layout_to_fen_helper "" layout in
   String.sub fen 0 (String.length fen - 1)
@@ -128,12 +142,13 @@ let layout_to_fen layout =
    (Failure "Unimplemented") let p1_score = raise (Failure "Unimplemented") let
    p2_score = raise (Failure "Unimplemented") let update_boardstate = raise
    (Failure "Unimplemented") *)
-let new_boardstate start dest piece old_boardstate =
+let new_boardstate start dest piece old_boardstate
+    (movetype : string -> string -> char -> char list -> char list) =
   let old_layout =
     match old_boardstate.state with
     | _, b -> b
   in
-  let new_layout = make_move start dest piece old_layout in
+  let new_layout = movetype start dest piece old_layout in
   {
     state = (new_layout |> layout_to_fen, new_layout);
     turn =

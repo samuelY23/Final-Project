@@ -18,8 +18,8 @@ let parse_helper (layout : char list) turn lst =
   | [] -> raise InvalidInput
   | h :: t -> (
       match h with
-      | "move" -> if (List.length t < 2)then raise InvalidInput else if (Util.is_valid_move t turn layout 1) then Move t else raise InvalidMove
-      | "capture" -> if List.length t < 2 then raise InvalidInput  else if (Util.is_valid_move_chain t layout) then Capture t else raise InvalidMove (** implement this *)
+      | "move" -> if (List.length t < 2)then raise InvalidInput else if (Util.is_valid_move t turn layout 1 ' ') then Move t else raise InvalidMove
+      | "capture" -> if List.length t < 2 then raise InvalidInput  else if (Util.is_valid_capture t turn layout) then Capture t else raise InvalidMove (** implement this *)
       | "forfeit" -> if List.length t > 0 then raise InvalidInput else Forfeit
       | _ -> raise InvalidInput)
 

@@ -11,13 +11,13 @@ let same_elements lst1 lst2 =
 (** tesing helpers *)
 let isdigit_test (name : string) (char1 : char) expected_output : test =
   name >:: fun _ ->
-  assert_equal ~printer:string_of_bool expected_output (Checkers.is_digit char1)
+  assert_equal ~printer:string_of_bool expected_output (Util.is_digit char1)
 
 let next_piece_test (name : string) (char1 : char) expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Checkers.next_piece char1)
 
 let string_to_list_test (name : string) (s : string) expected_output : test =
-  name >:: fun _ -> assert_equal expected_output (Checkers.string_to_list s)
+  name >:: fun _ -> assert_equal expected_output (Util.string_to_list s)
 
 let chess_test =
   [

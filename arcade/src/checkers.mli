@@ -14,5 +14,15 @@ val current_state_layout : board -> char list
 val current_turn : board -> player
 val player_score : player -> int
 val make_board : int -> string -> unit
-val new_boardstate : string -> string -> char -> board -> board
+val make_move : string -> string -> char -> char list -> char list
+val make_capture : string -> string -> char -> char list -> char list
+
+val new_boardstate :
+  string ->
+  string ->
+  char ->
+  board ->
+  (string -> string -> char -> char list -> char list) ->
+  board
+
 val next_piece : char -> char
