@@ -14,8 +14,6 @@ type piece =
   | White of char
   | Black of char
 
-
-
 let default_fen = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/1o1o1o1o/o1o1o1o1/1o1o1o1o|}
 
 let default_layout =
@@ -86,50 +84,10 @@ let default_layout =
     'O';
   ]
 
-let is_digit = function
-  | '1' .. '9' -> true
-  | _ -> false
-
 (* ------------------------------------------------------------*)
 (*layout conversion*)
-let string_to_list s = List.init (String.length s) (String.get s)
 
-let string_to_stringlist s =
-  List.map (fun x -> String.make 1 x) (string_to_list s)
-
-let rec fen_slash_filter (s : char list) =
-  match s with
-  | [] -> []
-  | h :: t -> if h = '/' then fen_slash_filter t else [ h ] @ fen_slash_filter t
-
-let rec list_repeat s n =
-  match n with
-  | 0 -> []
-  | m -> s :: list_repeat s (m - 1)
-
-let rec fenlist_to_layout layout lst =
-  match lst with
-  | [] -> layout
-  | h :: t ->
-      let string_h = String.make 1 h in
-      if is_digit h then
-        fenlist_to_layout (layout @ list_repeat ' ' (int_of_string string_h)) t
-      else fenlist_to_layout (layout @ [ h ]) t
 (* ------------------------------------------------------------*)
-
-let rec repeat s n =
-  match n with
-  | 0 -> ""
-  | m -> s ^ repeat s (m - 1)
-
-let rec row_builder lst_f =
-  match lst_f with
-  | [] -> "|"
-  | s :: t ->
-      let raw_char = String.make 1 s in
-      (if is_digit s then repeat "|   " (int_of_string raw_char)
-      else "| " ^ raw_char ^ " ")
-      ^ row_builder t
 
 let rec make_board n fen =
   let fen_state = String.split_on_char '/' fen in
@@ -142,7 +100,7 @@ let rec make_board n fen =
         ("  +---+---+---+---+---+---+---+---+\n"
         ^ string_of_int (9 - n)
         ^ " "
-        ^ row_builder (string_to_list (List.nth fen_state (8 - n))));
+        ^ Util.row_builder (Util.string_to_list (List.nth fen_state (8 - n))));
       make_board (n - 1) fen
 
 (*------------------------------------*)
@@ -157,50 +115,13 @@ let board_init =
 (*------------------------------------*)
 (*Movement*)
 
-let replace l src sink a =
-  List.mapi
-    (fun i x ->
-      match i with
-      | i -> if i = src then ' ' else if i = sink then a else x)
-    l
-
 let make_move start dest piece layout =
   let start_idx = Util.layout_index start in
   let dest_idx = Util.layout_index dest in
-  replace layout start_idx dest_idx piece
-
-let join l = String.of_seq (List.to_seq l)
-
-let rec to_run_length (lst : char list) : (int * char) list =
-  match lst with
-  | [] -> []
-  | h :: t -> (
-      match to_run_length t with
-      | (n, c) :: tail when h = c -> (n + 1, h) :: tail
-      | tail -> (1, h) :: tail)
-
-let rec pairs_to_string pairs =
-  match pairs with
-  | [] -> ""
-  | (n, l) :: h ->
-      (if l = ' ' then string_of_int n else repeat (String.make 1 l) n)
-      ^ pairs_to_string h
-
-let rec layout_to_fen_helper fen layout =
-  match layout with
-  | [] -> fen
-  | s ->
-      let w = join s in
-      layout_to_fen_helper
-        (fen
-        ^ (String.sub w 0 8 |> string_to_list |> to_run_length
-         |> pairs_to_string)
-        ^ "/")
-        (if String.length w = 8 then []
-        else string_to_list (String.sub w 8 ((w |> String.length) - 8)))
+  Util.replace layout start_idx dest_idx piece
 
 let layout_to_fen layout =
-  let fen = layout_to_fen_helper "" layout in
+  let fen = Util.layout_to_fen_helper "" layout in
   String.sub fen 0 (String.length fen - 1)
 
 (* let current_state = raise (Failure "Unimplemented") let current_turn = raise
