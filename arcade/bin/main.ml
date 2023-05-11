@@ -111,7 +111,8 @@ let main () =
         (* game_select *)
         print_string "\n\nSelect a game?\n- checkers\n- uno\n- connect4\n>";
         let game_choice = read_line () in
-        if game_choice = "checkers" then (
+        if game_choice = "checkers" then ( 
+          (* if (Account.sufficient 10 (account_retriever (player_accounts.data.(0))) = false || Account.sufficient 10 (account_retriever (player_accounts.data.(0))) = false) then () else (); *)
           let new_account3 = 
             (Account.deduct (10) (account_retriever player_accounts.data.(0))) in 
             player_accounts.data.(0) <- Some new_account3;
