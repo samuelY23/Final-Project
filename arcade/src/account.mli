@@ -28,5 +28,8 @@ val prob_lst : int list
     meant to signify the wheel spinner that spins to pick a random gift. The
     players are able to pick an amount to deposit in their bank account *)
 
+val prob_d: int -> int -> int list -> int list
+val get_name : t -> string
+(** [get_name] *)
 val get_init_amount : int -> int
 (** [get_init_amount pick] returns a random initial amount for a player to start with. *)

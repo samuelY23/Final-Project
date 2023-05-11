@@ -26,6 +26,9 @@ let deduct amt acc =
 (** [balance acc] returns returns the amount of money in [acc]*)
 let balance acc = acc.amount
 
+(** get the name of the player*)
+let get_name acc = acc.name
+
 (** [prob_data] is a list of 100 ints, fifty of them which will be 0, 30 of them
     will be between 1 and 74 and 20 of them will be between 25 and 100. This is
     meant to signify the wheel spinner that spins to pick a random gift. The
