@@ -5,6 +5,7 @@ val list_repeat : char -> int -> char list
 val fenlist_to_layout : char list -> char list -> char list
 val is_digit : char -> bool
 val replace : char list -> int -> int -> char -> char list
+val winCheck : char list -> int -> int -> char
 val join : char list -> string
 val layout_to_fen_helper : string -> char list -> string
 val to_run_length : char list -> (int * char) list

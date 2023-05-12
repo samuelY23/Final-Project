@@ -1,4 +1,5 @@
 open Game
+open Util
 open Checkers
 open Command
 open Account
@@ -19,9 +20,10 @@ let data_dir_prefix = "data" ^ Filename.dir_sep
    Checkers.(board_aftermove |> current_state_fen |> make_board 8);
    checkers_gameloop board_aftermove false new_piece *)
 
-let rec checkers_gameloop (board : Checkers.board) win piece =
-  match win with
-  | true -> ()
+let rec checkers_gameloop (board : Checkers.board) winPiece piece =
+  let didWin = if winPiece = ' ' then false else true in
+  match didWin with
+  | true -> print_endline (String.make 1 winPiece ^ " wins")
   | false -> (
       print_string ("\n player " ^ String.make 1 piece ^ "'s turn");
       let move_input =
@@ -42,7 +44,11 @@ let rec checkers_gameloop (board : Checkers.board) win piece =
                   Checkers.make_move
               in
               Checkers.(board_aftermove |> current_state_fen |> make_board 8);
-              checkers_gameloop board_aftermove false new_piece
+              checkers_gameloop board_aftermove
+                (Util.winCheck
+                   (Checkers.current_state_layout board_aftermove)
+                   0 0)
+                new_piece
           | Capture t ->
               let start = List.nth t 0 in
               let dest = List.nth t 1 in
@@ -52,7 +58,11 @@ let rec checkers_gameloop (board : Checkers.board) win piece =
                   Checkers.make_capture
               in
               Checkers.(board_aftermove |> current_state_fen |> make_board 8);
-              checkers_gameloop board_aftermove false new_piece
+              checkers_gameloop board_aftermove
+                (Util.winCheck
+                   (Checkers.current_state_layout board_aftermove)
+                   0 0)
+                new_piece
           | Forfeit -> failwith "")
       | exception e -> (
           Command.(
@@ -62,15 +72,15 @@ let rec checkers_gameloop (board : Checkers.board) win piece =
                   "\n\
                    Please format your input property.\n\
                    Use 'move' 'capture' or 'forfeit'\n";
-                checkers_gameloop board false piece
+                checkers_gameloop board ' ' piece
             | InvalidMove ->
                 print_string
                   "\n\
                    Piece can't move like that, please check your coordinates\n";
-                checkers_gameloop board false piece
+                checkers_gameloop board ' ' piece
             | _ ->
                 print_string "";
-                checkers_gameloop board false piece)))
+                checkers_gameloop board ' ' piece)))
 
 (** [account_retriever acct] returns an account *)
 let account_retriever acct =
@@ -164,24 +174,25 @@ let main () =
             ^ string_of_int (Account.balance new_account2)
             ^ "\n")
         in
-        print_string "")
-      else print_string "Enter either 1 or 2";
+          print_string "")
+        else print_string "Enter either 1 or 2";
 
-      (* game_select *)
-      print_string "\n\nSelect a game?\n- checkers\n- uno\n- connect4\n>";
-      let game_choice = read_line () in
-      if game_choice = "checkers" then (
-        print_string "\n\nWelcome to checkers, -10pt per player\n";
-        print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
-        Checkers.(board_init |> current_state_fen |> make_board 8);
-        checkers_gameloop Checkers.board_init false 'X')
-      else if game_choice = "uno" then ()
-      else ();
+        (* game_select *)
+        print_string "\n\nSelect a game?\n- checkers\n- uno\n- connect4\n>";
+        let game_choice = read_line () in
+        if game_choice = "checkers" then (
+          print_string "\n\nWelcome to checkers, -10pt per player\n";
+          print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
+          Checkers.(board_init |> current_state_fen |> make_board 8);
+          checkers_gameloop Checkers.board_init ' ' 'X')
+        else ();
 
-      (* game_select; *)
-      match read_line () with
-      | exception End_of_file -> ()
-      | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json"))
+        (* game_select; *)
+        match read_line () with
+        | exception End_of_file -> ()
+        | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json"))
+
+
 
 (* game_select *)
 
