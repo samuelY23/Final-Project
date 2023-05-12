@@ -31,6 +31,14 @@ let rec fenlist_to_layout layout lst =
 
 let join l = String.of_seq (List.to_seq l)
 
+let rec winCheck layout xcount ocount =
+  match layout with
+  | [] -> if xcount = 0 then 'O' else if ocount = 0 then 'X' else ' '
+  | h :: t ->
+      if h = 'X' then winCheck t (xcount + 1) ocount
+      else if h = 'O' then winCheck t xcount (ocount + 1)
+      else winCheck t xcount ocount
+
 let rec to_run_length (lst : char list) : (int * char) list =
   match lst with
   | [] -> []
