@@ -19,6 +19,30 @@ let next_piece_test (name : string) (char1 : char) expected_output : test =
 let string_to_list_test (name : string) (s : string) expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Util.string_to_list s)
 
+let string_to_stringlist_test (name : string) (s : string) expected_output :
+    test =
+  name >:: fun _ -> assert_equal expected_output (Util.string_to_stringlist s)
+
+let fenslashfilter_test (name : string) (s : char list) expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (Util.fen_slash_filter s)
+
+let listrepeat_test (name : string) (s : char) (i : int) expected_output : test
+    =
+  name >:: fun _ -> assert_equal expected_output (Util.list_repeat s i)
+
+let replace_test (name : string) (s : char list) (i : int) (j : int) (k : char)
+    expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (Util.replace s i j k)
+
+let layoutindex_test (name : string) (k : string) expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (Util.layout_index k)
+
+let join_test (name : string) (k : char list) expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (Util.join k)
+
+let onboard_test (name : string) (k : string) expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (Util.on_board k)
+
 let chess_test =
   [
     isdigit_test "testing a, non digit" 'a' false;
@@ -29,6 +53,28 @@ let chess_test =
     next_piece_test "anything else " '`' ' ';
     string_to_list_test "some strings" "abcdefg"
       [ 'a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g' ];
+    string_to_list_test "some strings" "" [];
+    string_to_stringlist_test "some strings" "abcdefg"
+      [ "a"; "b"; "c"; "d"; "e"; "f"; "g" ];
+    fenslashfilter_test "empty" [] [];
+    fenslashfilter_test "not empty"
+      [ 'a'; 'b'; '/'; 'd'; '/'; '/' ]
+      [ 'a'; 'b'; 'd' ];
+    listrepeat_test "empty" ' ' 0 [];
+    listrepeat_test "empty" 'a' 5 [ 'a'; 'a'; 'a'; 'a'; 'a' ];
+    replace_test "empty" [] 0 1 'k' [];
+    replace_test "replace" [ 'a'; 'b'; 'c'; 'd' ] 1 3 'f' [ 'a'; ' '; 'c'; 'f' ];
+    layoutindex_test "a1 to 0" "a1" 0;
+    layoutindex_test "a6 to 40" "a6" 40;
+    layoutindex_test "h8 to 63" "h8" 63;
+    join_test "empty" [] "";
+    join_test "empty2" [ ' '; ' ' ] "  ";
+    join_test "not empty" [ 'a'; 'b'; 'c' ] "abc";
+    onboard_test "not onboard" "a9" false;
+    onboard_test "onboard" "a0" false;
+    onboard_test "onboard" "a1" true;
+    onboard_test "onboard" "h8" true;
+    onboard_test "onboard" "h7" true;
   ]
 
 (** TESTING ACCOUNT *)
@@ -48,7 +94,9 @@ let add_test (name : string) (amt : int) (acc : Account.t) expected_output :
 let deduct_test (name : string) (amt : int) (acc : Account.t) expected_output :
     test =
   name >:: fun _ ->
-  assert_equal expected_output (Account.balance (Account.deduct amt acc))
+  assert_equal expected_output
+    (Account.balance (Account.deduct amt acc))
+    ~printer:string_of_int
 
 let prod_d_test (name : string) (num : int) (amt : int) (lis : int list)
     expected_output : test =
@@ -70,7 +118,7 @@ let arcade_test =
   [
     get_name_test "kemba" acc2 "samuel";
     get_name_test "get name" acc1 "success";
-    get_balance_test "get balance" acc1 0;
+    get_balance_test "get balance" acc1 10;
     prod_lst_test "testing shuffled lst"
       [
         20;
@@ -211,11 +259,11 @@ let arcade_test =
     suff_lst_test "given list" 11 acc1 false;
     suff_lst_test "should pass" 12 acc2 false;
     suff_lst_test "given list" 11 acc2_new true;
-    add_test "adding 10 to acc" 10 acc1 10;
-    deduct_test "subtract 10" 90 acc2_new 10;
-    get_balance_test "acc2" acc2 0;
-    get_balance_test "acc1" acc1 0;
-    get_balance_test "acc2_new" acc2_new 100;
+    add_test "adding 10 to acc" 10 acc1 20;
+    deduct_test "subtract 10" 90 acc2_new 20;
+    get_balance_test "acc2" acc2 10;
+    get_balance_test "acc1" acc1 10;
+    get_balance_test "acc2_new" acc2_new 110;
   ]
 
 let suite =

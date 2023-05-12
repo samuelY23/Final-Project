@@ -1,7 +1,7 @@
 val string_to_list : string -> char list
 val string_to_stringlist : string -> string list
 val fen_slash_filter : char list -> char list
-val list_repeat : string -> int -> string list
+val list_repeat : char -> int -> char list
 val fenlist_to_layout : char list -> char list -> char list
 val is_digit : char -> bool
 val replace : char list -> int -> int -> char -> char list

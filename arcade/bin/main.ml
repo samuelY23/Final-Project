@@ -1,5 +1,8 @@
 open Game
 open Util
+open Checkers
+open Command
+open Account
 
 type 'a player_account = {
   mutable data : 'a option array;
@@ -92,8 +95,7 @@ let change_amount amt acc = Account.add amt acc
 let create_account name =
   let account = Account.account name in
   player_accounts.data.(player_accounts.size) <- Some account;
-  player_accounts.size <- player_accounts.size + 1;
-  account
+  player_accounts.size <- player_accounts.size + 1
 
 let print_number_range () =
   print_string "\nPlease pick a number between 1 and 100\n";
@@ -115,14 +117,33 @@ let main () =
   print_string "\n\nWelcome to our Arcade!!\n Be Competitive and Have Fun!!\n";
   print_string "\n\nHow many players will be playing?\n";
   print_string "> ";
-  let player_number =
-    match read_line () with
-    | x -> (
-        if x = "1" then (
-          print_string "\n\nPlease enter your name\n";
-          print_string "> ";
-          let name = read_line () in
-          let account = create_account name in
+
+  match read_line () with
+  | x -> (
+      if x = "1" then (
+        print_string "\n\nPlease enter your name\n";
+        print_string "> ";
+        let name = read_line () in
+        create_account name;
+        congrats_message name;
+        print_number_range ();
+        let number_pick = int_of_string (read_line ()) in
+        let new_account =
+          Account.add
+            (Account.get_init_amount number_pick)
+            (account_retriever player_accounts.data.(0))
+        in
+        player_accounts.data.(0) <- Some new_account;
+        print_string
+          ("Congrats, you have $"
+          ^ string_of_int (Account.balance new_account)
+          ^ "\n"))
+      else if x = "2" then (
+        print_string "\n\nPlayer 1, please enter your name\n";
+        let name = read_line () in
+        let () =
+          print_string "";
+          create_account name;
           congrats_message name;
           print_number_range ();
           let number_pick = int_of_string (read_line ()) in
@@ -135,44 +156,24 @@ let main () =
           print_string
             ("Congrats, you have $"
             ^ string_of_int (Account.balance new_account)
-            ^ "\n"))
-        else if x = "2" then (
-          print_string "\n\nPlayer 1, please enter your name\n";
-          let name = read_line () in
-          let () =
-            print_string "";
-            let account1 = create_account name in
-            congrats_message name;
-            print_number_range ();
-            let number_pick = int_of_string (read_line ()) in
-            let new_account =
-              Account.add
-                (Account.get_init_amount number_pick)
-                (account_retriever player_accounts.data.(0))
-            in
-            player_accounts.data.(0) <- Some new_account;
-            print_string
-              ("Congrats, you have $"
-              ^ string_of_int (Account.balance new_account)
-              ^ "\n");
+            ^ "\n");
 
-            print_string "\n\nPlayer 2, please enter your name\n";
-            let name = read_line () in
-            let account = create_account name in
-            congrats_message name;
-            print_number_range ();
-            let number_pick2 = int_of_string (read_line ()) in
-            let new_account2 =
-              Account.add
-                (Account.get_init_amount number_pick2)
-                (account_retriever player_accounts.data.(1))
-            in
-            player_accounts.data.(1) <- Some new_account2;
-            print_string
-              ("Congrats, you have $"
-              ^ string_of_int (Account.balance new_account2)
-              ^ "\n")
+          print_string "\n\nPlayer 2, please enter your name\n";
+          let name = read_line () in
+          create_account name;
+          print_number_range ();
+          let number_pick2 = int_of_string (read_line ()) in
+          let new_account2 =
+            Account.add
+              (Account.get_init_amount number_pick2)
+              (account_retriever player_accounts.data.(1))
           in
+          player_accounts.data.(1) <- Some new_account2;
+          print_string
+            ("Congrats, you have $"
+            ^ string_of_int (Account.balance new_account2)
+            ^ "\n")
+        in
           print_string "")
         else print_string "Enter either 1 or 2";
 
@@ -190,9 +191,8 @@ let main () =
         match read_line () with
         | exception End_of_file -> ()
         | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json"))
-  in
 
-  print_string ""
+
 
 (* game_select *)
 

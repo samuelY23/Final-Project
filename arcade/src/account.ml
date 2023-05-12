@@ -6,7 +6,7 @@ type t = {
 exception InsufficientFunds of int
 
 (** [account name] is the initialization of an account with name [name] *)
-let account s = { name = s; amount = 0 }
+let account s = { name = s; amount = 10 }
 
 (** [add amt acc] is the account returned after [amt] has been added to the
     account*)
