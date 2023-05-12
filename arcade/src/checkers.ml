@@ -14,7 +14,7 @@ type piece =
   | White of char
   | Black of char
 
-let default_fen = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/1o1o1o1o/o1o1o1o1/1o1o1o1o|}
+let default_fen = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/1O1O1O1O/O1O1O1O1/1O1O1O1O|}
 
 let default_layout =
   [
