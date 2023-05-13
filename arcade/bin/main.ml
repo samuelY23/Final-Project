@@ -88,6 +88,9 @@ let account_retriever acct =
   | None -> failwith "No account"
   | Some x -> x
 
+let player_number = ref 0
+(* Keeps track of the number of players currently playing. *)
+
 let change_amount amt acc = Account.add amt acc
 
 (** [create_account name] creates an account for a user with an initial amount
@@ -101,6 +104,8 @@ let print_number_range () =
   print_string "\nPlease pick a number between 1 and 100\n";
   print_string "> "
 
+
+
 let congrats_message name =
   print_string
     ("Congrats, " ^ name
@@ -113,7 +118,7 @@ let congrats_message name =
 let play_game f = raise (Failure "Unimplemented: Main.play_game")
 
 (** [main ()] prompts for the game to play, then starts it. *)
-let main () =
+let rec main () =
   print_string "\n\nWelcome to our Arcade!!\n Be Competitive and Have Fun!!\n";
   print_string "\n\nHow many players will be playing?\n";
   print_string "> ";
@@ -121,6 +126,8 @@ let main () =
   match read_line () with
   | x -> (
       if x = "1" then (
+        player_number := 1;
+      (* change *)
         print_string "\n\nPlease enter your name\n";
         print_string "> ";
         let name = read_line () in
@@ -128,6 +135,7 @@ let main () =
         congrats_message name;
         print_number_range ();
         let number_pick = int_of_string (read_line ()) in
+        if number_pick > 100 then raise (Failure "Invalid Input") else 
         let new_account =
           Account.add
             (Account.get_init_amount number_pick)
@@ -139,6 +147,7 @@ let main () =
           ^ string_of_int (Account.balance new_account)
           ^ "\n"))
       else if x = "2" then (
+        player_number := 2;
         print_string "\n\nPlayer 1, please enter your name\n";
         let name = read_line () in
         let () =
@@ -147,6 +156,7 @@ let main () =
           congrats_message name;
           print_number_range ();
           let number_pick = int_of_string (read_line ()) in
+          if number_pick > 100 then raise (Failure "Invalid Input") else 
           let new_account =
             Account.add
               (Account.get_init_amount number_pick)
@@ -163,6 +173,7 @@ let main () =
           create_account name;
           print_number_range ();
           let number_pick2 = int_of_string (read_line ()) in
+          if number_pick2 > 100 then raise (Failure "Invalid Input") else 
           let new_account2 =
             Account.add
               (Account.get_init_amount number_pick2)
@@ -181,11 +192,17 @@ let main () =
         print_string "\n\nSelect a game?\n- checkers\n- uno\n- connect4\n>";
         let game_choice = read_line () in
         if game_choice = "checkers" then (
+          (if !player_number = 1 then (
+            player_accounts.data.(0) <- Some (Account.deduct 10 (account_retriever (player_accounts.data.(0))))
+          ) else (
+            player_accounts.data.(0) <- Some (Account.deduct 10 (account_retriever (player_accounts.data.(0))));
+            player_accounts.data.(1) <- Some (Account.deduct 10 (account_retriever (player_accounts.data.(1))))
+          ));
           print_string "\n\nWelcome to checkers, -10pt per player\n";
           print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
           Checkers.(board_init |> current_state_fen |> make_board 8);
           checkers_gameloop Checkers.board_init ' ' 'X')
-        else ();
+        else (raise (Failure "Invalid Input"));
 
         (* game_select; *)
         match read_line () with
