@@ -23,16 +23,16 @@ val check_tie : board -> bool
 (** [check_tie board] returns true if the game has ended in a tie by checking if
     all the spaces on the board are filled. *)
 
-val make_move : player -> int * int -> board
+val make_move : player -> int * int -> board -> unit
 (** [make_move player pos] takes in a player and a position, and returns the
     game board after the move. *)
 
-val valid_move : int * int -> bool
+val valid_move : int -> board -> int -> bool
 (** [valid_move pos] returns whether the current move is valid by checking if
     its space on the board is empty. *)
 
-val switch_player : player -> player
+val switch_player : player -> player -> player -> player
 (** [switch_player player] switches players. *)
 
-val play_game : unit -> player option
+val play_game : unit -> unit
 (** [play_game] is the main loop and runs the game. *)
