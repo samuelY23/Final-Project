@@ -174,25 +174,23 @@ let main () =
             ^ string_of_int (Account.balance new_account2)
             ^ "\n")
         in
-          print_string "")
-        else print_string "Enter either 1 or 2";
+        print_string "")
+      else print_string "Enter either 1 or 2";
 
-        (* game_select *)
-        print_string "\n\nSelect a game?\n- checkers\n- uno\n- connect4\n>";
-        let game_choice = read_line () in
-        if game_choice = "checkers" then (
-          print_string "\n\nWelcome to checkers, -10pt per player\n";
-          print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
-          Checkers.(board_init |> current_state_fen |> make_board 8);
-          checkers_gameloop Checkers.board_init ' ' 'X')
-        else ();
+      (* game_select *)
+      print_string "\n\nSelect a game?\n- checkers\n- uno\n- connect4\n>";
+      let game_choice = read_line () in
+      if game_choice = "checkers" then (
+        print_string "\n\nWelcome to checkers, -10pt per player\n";
+        print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
+        Checkers.(board_init |> current_state_fen |> make_board 8);
+        checkers_gameloop Checkers.board_init ' ' 'X')
+      else ();
 
-        (* game_select; *)
-        match read_line () with
-        | exception End_of_file -> ()
-        | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json"))
-
-
+      (* game_select; *)
+      match read_line () with
+      | exception End_of_file -> ()
+      | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json"))
 
 (* game_select *)
 
