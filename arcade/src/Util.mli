@@ -18,3 +18,4 @@ val is_diagonal_adj : string -> string -> char -> int -> bool
 val is_valid_move : string list -> char -> char list -> int -> char -> bool
 val is_valid_capture : string list -> char -> char list -> bool
 val is_valid_move_chain : string list -> char list -> bool
+val make_King : char list -> char list

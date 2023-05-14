@@ -207,7 +207,7 @@ let rec main () =
         print_string "\n\nWelcome to checkers, -10pt per player\n";
         print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
         Checkers.(board_init |> current_state_fen |> make_board 8);
-        checkers_gameloop Checkers.board_init ' ' 'X')
+        checkers_gameloop Checkers.board_init ' ' 'x')
       else raise (Failure "Invalid Input");
 
       (* game_select; *)
