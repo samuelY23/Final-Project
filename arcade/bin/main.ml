@@ -155,7 +155,7 @@ let rec main () =
           congrats_message name;
           print_number_range ();
           let number_pick = int_of_string (read_line ()) in
-          if number_pick > 100 then raise (Failure "Invalid Input")
+          if number_pick > 100 then print_string "Enter a number between 1-100"
           else
             let new_account =
               Account.add
@@ -173,7 +173,8 @@ let rec main () =
             create_account name;
             print_number_range ();
             let number_pick2 = int_of_string (read_line ()) in
-            if number_pick2 > 100 then raise (Failure "Invalid Input")
+            if number_pick2 > 100 then
+              print_string "Enter a number between 1-100"
             else
               let new_account2 =
                 Account.add
@@ -208,7 +209,22 @@ let rec main () =
         print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
         Checkers.(board_init |> current_state_fen |> make_board 8);
         checkers_gameloop Checkers.board_init ' ' 'X')
-      else raise (Failure "Invalid Input");
+      else if game_choice = "connect4" then (
+        if !player_number = 1 then
+          player_accounts.data.(0) <-
+            Some
+              (Account.deduct 10 (account_retriever player_accounts.data.(0)))
+        else (
+          player_accounts.data.(0) <-
+            Some
+              (Account.deduct 10 (account_retriever player_accounts.data.(0)));
+          player_accounts.data.(1) <-
+            Some
+              (Account.deduct 10 (account_retriever player_accounts.data.(1))));
+        print_string "\n\n Welcome to Connect4, -10pt per player\n";
+        print_string "\nPlayer 1 : R\nPlayer 2 ; Y\n";
+        Connect4.play_game ())
+      else print_string "Re-enter your input ";
 
       (* game_select; *)
       match read_line () with
