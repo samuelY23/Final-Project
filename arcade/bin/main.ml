@@ -82,6 +82,8 @@ let rec checkers_gameloop (board : Checkers.board) winPiece piece =
                 print_string "";
                 checkers_gameloop board ' ' piece)))
 
+let rec connect4_gameloop temp = raise (Failure "")
+
 (** [account_retriever acct] returns an account *)
 let account_retriever acct =
   match acct with

@@ -8,14 +8,14 @@ val create_player : string -> string -> player
 (** [create_player name symb] is the initialization of a player with [name] and
     symbol [symb]. *)
 
-val create_board : string -> board
+val create_board : unit -> board
 (** [create_board ] is the initialization of the standard Connect 4 board. *)
 
-val display_board : board -> board
+val display_board : board -> unit
 (** [display_board board] displays the current game board *)
 
 val check_win : player -> board -> bool
-(** [check_win player board] returns true if a player has won teh game by
+(** [check_win player board] returns true if a player has won the game by
     checking if they have four symbols in a row (vertically, horizontally, or
     diagonally) on the game board. Otherwise, it returns false. *)
 
