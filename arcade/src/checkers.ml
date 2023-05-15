@@ -109,4 +109,4 @@ let player_score plyr =
 let current_turn brd = brd.turn
 
 let next_piece curr =
-  if curr = 'x' then 'o' else if curr = 'o' then 'x' else ' '
+  if curr = 'x' || curr = 'X' then 'o' else if curr = 'o' then 'x' else ' '

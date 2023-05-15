@@ -63,7 +63,9 @@ let rec checkers_gameloop (board : Checkers.board) winPiece piece =
                    (Checkers.current_state_layout board_aftermove)
                    0 0)
                 new_piece
-          | Forfeit -> Stdlib.exit 0)
+
+          | Forfeit -> exit 0)
+
       | exception e -> (
           Command.(
             match e with
@@ -205,8 +207,14 @@ and game_select () =
         Some (Account.deduct 10 (account_retriever player_accounts.data.(1))));
     print_string "\n\nWelcome to checkers, -10pt per player\n";
     print_string "\nPlayer 1 : X\nPlayer 2 : O\n";
+    print_string
+      "\n\
+       Use commands [move capture] followed by\n\
+       start and end positions to move or capture a piece\n\
+       Use [forfeit] to quit the game\n\
+       e.g. [move c3 d4] [capture c3 e5]\n";
     Checkers.(board_init |> current_state_fen |> make_board 8);
-    checkers_gameloop Checkers.board_init ' ' 'X')
+    checkers_gameloop Checkers.board_init ' ' 'x')
   else if game_choice = "connect4" then (
     if !player_number = 1 then (
       player_accounts.data.(0) <-
