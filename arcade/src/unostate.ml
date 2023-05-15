@@ -83,11 +83,11 @@ let rec split_at n lst =
       let prefix, suffix = split_at (n - 1) xs in
       (x :: prefix, suffix)
 
-let distribute (deck : deck) : players_cards list =
+let distribute (deck : deck) : players_cards list * deck =
   let shuffled_deck = shuffle deck in
 
   let rec distribute_aux players_cards remaining_deck num_cards =
-    if num_cards = 0 then List.rev players_cards
+    if num_cards = 0 then (List.rev players_cards, remaining_deck)
     else
       let player_cards, rest_deck = split_at 7 remaining_deck in
       distribute_aux (player_cards :: players_cards) rest_deck (num_cards - 1)

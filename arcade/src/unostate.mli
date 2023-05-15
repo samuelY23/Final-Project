@@ -53,7 +53,7 @@ val check_valid : card_data -> card_data -> bool
 val shuffle : deck -> deck
 (** [shuffle deck] scrambles order of cards in the deck *)
 
-val distribute : deck -> players_cards list
+val distribute : deck -> players_cards list * deck
 (** [distribute deck] distributes the deck players, and gives then their own
     cards *)
 
