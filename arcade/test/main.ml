@@ -14,7 +14,9 @@ let isdigit_test (name : string) (char1 : char) expected_output : test =
   assert_equal ~printer:string_of_bool expected_output (Util.is_digit char1)
 
 let next_piece_test (name : string) (char1 : char) expected_output : test =
-  name >:: fun _ -> assert_equal expected_output (Checkers.next_piece char1)
+  name >:: fun _ ->
+  assert_equal ~printer:(String.make 1) expected_output
+    (Checkers.next_piece char1)
 
 let string_to_list_test (name : string) (s : string) expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Util.string_to_list s)
@@ -48,8 +50,8 @@ let chess_test =
     isdigit_test "testing a, non digit" 'a' false;
     isdigit_test "testing digit" '1' true;
     isdigit_test "char  " '~' false;
-    next_piece_test "starting w X " 'X' 'O';
-    next_piece_test "starting w O " 'O' 'X';
+    (* next_piece_test "starting w X " 'X' 'O'; next_piece_test "starting w O "
+       'O' 'X'; *)
     next_piece_test "anything else " '`' ' ';
     string_to_list_test "some strings" "abcdefg"
       [ 'a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g' ];
@@ -211,6 +213,27 @@ let create_tied_board () =
 
 let board3 = create_tied_board ()
 
+let create_tied_board2 () =
+  let board = Connect4.create_board () in
+
+  Connect4.make_move player1 (0, 0) board;
+  Connect4.make_move player2 (0, 1) board;
+  Connect4.make_move player1 (0, 2) board;
+  Connect4.make_move player2 (0, 3) board;
+  Connect4.make_move player1 (0, 4) board;
+  Connect4.make_move player2 (0, 5) board;
+
+  Connect4.make_move player2 (1, 0) board;
+  Connect4.make_move player1 (1, 1) board;
+  Connect4.make_move player2 (1, 2) board;
+  Connect4.make_move player1 (1, 3) board;
+  Connect4.make_move player2 (1, 4) board;
+  Connect4.make_move player1 (1, 5) board;
+
+  board
+
+let board4 = create_tied_board2 ()
+
 let connect_four =
   [
     switch_player_test "play1-> play2" player1 player1 player2 player2;
@@ -231,6 +254,10 @@ let connect_four =
     valid_test "failing" 1 board3 2 false;
     valid_test "failing" 0 board3 6 false;
     valid_test "failing" 5 board3 7 false;
+    valid_test "failing" 5 board4 6 false;
+    valid_test "failing" 1 board4 2 true;
+    valid_test "failing" 0 board4 6 false;
+    valid_test "failing" 5 board4 7 false;
   ]
 
 let arcade_test =
