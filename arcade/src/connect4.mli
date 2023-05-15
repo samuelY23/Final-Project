@@ -8,6 +8,14 @@ val create_player : string -> string -> player
 (** [create_player name symb] is the initialization of a player with [name] and
     symbol [symb]. *)
 
+val get_name : player -> string
+(** [get_name player] gets players name *)
+
+val get_symbol : player -> string
+(** [get_symbol player] gets players symbol *)
+
+val get_symbol : player -> string
+
 val create_board : unit -> board
 (** [create_board ] is the initialization of the standard Connect 4 board. *)
 
@@ -24,12 +32,12 @@ val check_tie : board -> bool
     all the spaces on the board are filled. *)
 
 val make_move : player -> int * int -> board -> unit
-(** [make_move player pos board] takes in a player and a position, and returns the
-    game board after the move. *)
+(** [make_move player pos board] takes in a player and a position, and returns
+    the game board after the move. *)
 
 val make_move_ai : player -> board -> int -> unit
-(** [make_move_ai player board] takes in an AI player nd returns the board 
-    after the move*)
+(** [make_move_ai player board] takes in an AI player nd returns the board after
+    the move*)
 
 val valid_move : int -> board -> int -> bool
 (** [valid_move pos] returns whether the current move is valid by checking if
