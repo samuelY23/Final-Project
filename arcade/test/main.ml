@@ -2,6 +2,7 @@ open OUnit2
 open Game
 open Account
 open Checkers
+open Util
 
 let same_elements lst1 lst2 =
   let sorted1 = List.sort compare lst1 in
@@ -36,7 +37,8 @@ let replace_test (name : string) (s : char list) (i : int) (j : int) (k : char)
     expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Util.replace s i j k)
 
-let layoutindex_test (name : string) (k : string) expected_output : test =
+let layoutindex_test (name : string) (k : string) (expected_output : int) : test
+    =
   name >:: fun _ -> assert_equal expected_output (Util.layout_index k)
 
 let join_test (name : string) (k : char list) expected_output : test =
@@ -45,13 +47,60 @@ let join_test (name : string) (k : char list) expected_output : test =
 let onboard_test (name : string) (k : string) expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Util.on_board k)
 
+let repeat_test (name : string) (k : string) (i : int)
+    (expected_output : string) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.repeat k i)
+
+let pairs_to_string_test (name : string) (k : (int * char) list)
+    (expected_output : string) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.pairs_to_string k)
+
+let to_run_length_test (name : string) (lst : char list)
+    (expected_output : (int * char) list) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.to_run_length lst)
+
+let layout_to_fen_test (name : string) (k : string) (lst : char list)
+    (expected_output : string) : test =
+  name >:: fun _ ->
+  assert_equal expected_output (Util.layout_to_fen_helper k lst)
+
+let isdiagadj_test (name : string) (pos : string) (dest : string) (piece : char)
+    (stride : int) expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output (Util.is_diagonal_adj pos dest piece stride)
+
+let row_builder_test (name : string) (lst : char list)
+    (expected_output : string) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.row_builder lst)
+
+let isvalidmove_test (name : string) (lst : string list) (k : char)
+    (j : char list) (num : int) (m : char) (expected_output : bool) : test =
+  name >:: fun _ ->
+  assert_equal expected_output (Util.is_valid_move lst k j num m)
+
+let isvalidcapture_test (name : string) (lst : string list) (k : char)
+    (j : char list) (expected_output : bool) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.is_valid_capture lst k j)
+
+let str1 = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/8/8/8|}
+let str2 = {|8/8/8/8/8/1O1O1O1O/O1O1O1O1/1O1O1O1O|}
+
+let newstr1 =
+  str1 |> Util.string_to_list |> fen_slash_filter |> fenlist_to_layout []
+
+let newstr2 =
+  str2 |> Util.string_to_list |> fen_slash_filter |> fenlist_to_layout []
+
+let wincheck_test (name : string) (k : char list) expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (Util.winCheck k 0 0)
+
 let chess_test =
   [
     isdigit_test "testing a, non digit" 'a' false;
     isdigit_test "testing digit" '1' true;
     isdigit_test "char  " '~' false;
-    (* next_piece_test "starting w X " 'X' 'O'; next_piece_test "starting w O "
-       'O' 'X'; *)
+    next_piece_test "starting w X " 'x' 'o';
+    next_piece_test "starting w O " 'o' 'x';
     next_piece_test "anything else " '`' ' ';
     string_to_list_test "some strings" "abcdefg"
       [ 'a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g' ];
@@ -77,6 +126,46 @@ let chess_test =
     onboard_test "onboard" "a1" true;
     onboard_test "onboard" "h8" true;
     onboard_test "onboard" "h7" true;
+    wincheck_test "X wins" newstr1 'X';
+    wincheck_test "O wins" newstr2 'O';
+    isdiagadj_test "false" "e3" "e3" 'X' 1 false;
+    isdiagadj_test "true" "e3" "d4" 'X' 1 true;
+    isdiagadj_test "false" "e3" "d4" 'X' 2 false;
+    isdiagadj_test "true" "d2" "f4" 'X' 2 true;
+    isdiagadj_test "false" "e7" "f8" 'O' 2 false;
+    isdiagadj_test "false" "e7" "f6" 'O' 2 false;
+    isdiagadj_test "true" "d8" "a5" 'O' 3 true;
+    repeat_test "empty" "" 0 "";
+    repeat_test "empty" " " 5 "     ";
+    repeat_test "num" "a" 3 "aaa";
+    repeat_test "multiple" "ab" 3 "ababab";
+    pairs_to_string_test "empty" [ (3, ' '); (1, ' ') ] "31";
+    pairs_to_string_test "empty" [ (3, 'x'); (1, 'o') ] "xxxo";
+    pairs_to_string_test "empty" [ (3, 'x'); (0, 'o') ] "xxx";
+    layout_to_fen_test "empty" "" [] "";
+    layout_to_fen_test "not empty1" ""
+      [ 'a'; 'b'; 'a'; 'b'; 'a'; 'b'; 'a'; 'b' ]
+      "abababab/";
+    layout_to_fen_test "not empty2" ""
+      [
+        'c';
+        'd';
+        'e';
+        'a';
+        'b';
+        'f';
+        'g';
+        'h';
+        'c';
+        'd';
+        'e';
+        'g';
+        'h';
+        'c';
+        'd';
+        'e';
+      ]
+      "cdeabfgh/cdeghcde/";
   ]
 
 (** TESTING ACCOUNT *)
