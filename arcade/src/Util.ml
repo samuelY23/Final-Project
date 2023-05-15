@@ -118,7 +118,6 @@ let is_diagonal_adj (pos : string) (dest : string) (piece : char) (stride : int)
       (lettnum_to_pos left down, lettnum_to_pos right down)
     else (lettnum_to_pos left up, lettnum_to_pos right up)
   in
-  print_endline (dest ^ fst reachable ^ snd reachable);
   dest = fst reachable || dest = snd reachable
 
 let is_valid_move (move : string list) piece layout (stride : int) occupant =
@@ -150,7 +149,6 @@ let is_valid_move_chain (move : string list) layout = true
 
 let is_valid_capture move piece layout =
   let other = if piece = fst pawns then snd pawns else fst pawns in
-  print_endline (String.make 1 piece ^ " --- " ^ String.make 1 other);
   is_valid_move move piece layout 2 ' '
   && is_valid_move move piece layout 1 other
 
