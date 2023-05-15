@@ -63,7 +63,7 @@ let rec checkers_gameloop (board : Checkers.board) winPiece piece =
                    (Checkers.current_state_layout board_aftermove)
                    0 0)
                 new_piece
-          | Forfeit -> failwith "")
+          | Forfeit -> Stdlib.exit 0)
       | exception e -> (
           Command.(
             match e with
