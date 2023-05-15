@@ -35,6 +35,14 @@ type t = {
 
 exception InvalidMove
 
+let create_initstate top_card player1 ply2 =
+  {
+    played_cards = [];
+    top_card;
+    current_player = player1;
+    next_list = [ ply2 ];
+  }
+
 let create_player cards = { cards; cards_left = 7 }
 let get_top t = t.top_card
 let next_player t = List.nth t.next_list 0
