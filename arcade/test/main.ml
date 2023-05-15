@@ -2,6 +2,7 @@ open OUnit2
 open Game
 open Account
 open Checkers
+open Util
 
 let same_elements lst1 lst2 =
   let sorted1 = List.sort compare lst1 in
@@ -43,6 +44,23 @@ let join_test (name : string) (k : char list) expected_output : test =
 let onboard_test (name : string) (k : string) expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Util.on_board k)
 
+let isdiagadj_test (name : string) (pos : string) (dest : string) (piece : char)
+    (stride : int) expected_output : test =
+  name >:: fun _ ->
+  assert_equal expected_output (Util.is_diagonal_adj pos dest piece stride)
+
+let str1 = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/8/8/8|}
+let str2 = {|8/8/8/8/8/1O1O1O1O/O1O1O1O1/1O1O1O1O|}
+
+let newstr1 =
+  str1 |> Util.string_to_list |> fen_slash_filter |> fenlist_to_layout []
+
+let newstr2 =
+  str2 |> Util.string_to_list |> fen_slash_filter |> fenlist_to_layout []
+
+let wincheck_test (name : string) (k : char list) expected_output : test =
+  name >:: fun _ -> assert_equal expected_output (Util.winCheck k 0 0)
+
 let chess_test =
   [
     isdigit_test "testing a, non digit" 'a' false;
@@ -75,6 +93,15 @@ let chess_test =
     onboard_test "onboard" "a1" true;
     onboard_test "onboard" "h8" true;
     onboard_test "onboard" "h7" true;
+    wincheck_test "X wins" newstr1 'X';
+    wincheck_test "O wins" newstr2 'O';
+    isdiagadj_test "false" "e3" "e3" 'X' 1 false;
+    isdiagadj_test "true" "e3" "d4" 'X' 1 true;
+    isdiagadj_test "false" "e3" "d4" 'X' 2 false;
+    isdiagadj_test "true" "d2" "f4" 'X' 2 true;
+    isdiagadj_test "false" "e7" "f8" 'O' 2 false;
+    isdiagadj_test "false" "e7" "f6" 'O' 2 false;
+    isdiagadj_test "true" "d8" "a5" 'O' 3 true;
   ]
 
 (** TESTING ACCOUNT *)
