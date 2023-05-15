@@ -1,4 +1,4 @@
-(* takes in a pos [a7] and return an int index in layout*)
+(** takes in a pos [a7] and return an int index in layout*)
 let pawns = ('x', 'o')
 
 let is_digit = function

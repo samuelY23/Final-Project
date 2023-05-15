@@ -229,7 +229,6 @@ and game_select () =
   | exception End_of_file -> ()
   | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json")
 
-
 (* game_select *)
 
 (* Execute the game engine. *)
