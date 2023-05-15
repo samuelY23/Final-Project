@@ -80,4 +80,4 @@ val is_valid_move_chain : string list -> char list -> bool
 
 val make_King : char list -> char list
 (** [make_King layout] evaluates to a layout char list with any pawn piece in
-    theopposing home row promoted to a King*)
+    the opposing home row promoted to a King*)

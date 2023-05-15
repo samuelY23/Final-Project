@@ -37,7 +37,8 @@ let replace_test (name : string) (s : char list) (i : int) (j : int) (k : char)
     expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Util.replace s i j k)
 
-let layoutindex_test (name : string) (k : string) expected_output : test =
+let layoutindex_test (name : string) (k : string) (expected_output : int) : test
+    =
   name >:: fun _ -> assert_equal expected_output (Util.layout_index k)
 
 let join_test (name : string) (k : char list) expected_output : test =
@@ -46,10 +47,40 @@ let join_test (name : string) (k : char list) expected_output : test =
 let onboard_test (name : string) (k : string) expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Util.on_board k)
 
+let repeat_test (name : string) (k : string) (i : int)
+    (expected_output : string) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.repeat k i)
+
+let pairs_to_list_test (name : string) (k : (int * char) list)
+    (expected_output : string) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.pairs_to_string k)
+
+let to_run_length_test (name : string) (lst : char list)
+    (expected_output : (int * char) list) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.to_run_length lst)
+
+let layout_to_fen_test (name : string) (k : string) (lst : char list)
+    (expected_output : string) : test =
+  name >:: fun _ ->
+  assert_equal expected_output (Util.layout_to_fen_helper k lst)
+
 let isdiagadj_test (name : string) (pos : string) (dest : string) (piece : char)
     (stride : int) expected_output : test =
   name >:: fun _ ->
   assert_equal expected_output (Util.is_diagonal_adj pos dest piece stride)
+
+let row_builder_test (name : string) (lst : char list)
+    (expected_output : string) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.row_builder lst)
+
+let isvalidmove_test (name : string) (lst : string list) (k : char)
+    (j : char list) (num : int) (m : char) (expected_output : bool) : test =
+  name >:: fun _ ->
+  assert_equal expected_output (Util.is_valid_move lst k j num m)
+
+let isvalidcapture_test (name : string) (lst : string list) (k : char)
+    (j : char list) (expected_output : bool) : test =
+  name >:: fun _ -> assert_equal expected_output (Util.is_valid_capture lst k j)
 
 let str1 = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/8/8/8|}
 let str2 = {|8/8/8/8/8/1O1O1O1O/O1O1O1O1/1O1O1O1O|}
