@@ -223,6 +223,22 @@ and game_select () =
     print_string "\n\n Welcome to Connect4, -10pt per player\n";
     print_string "\nPlayer 1 : R\nPlayer 2 ; Y\n";
     Connect4.play_game ())
+  else if game_choice = "uno" then (
+    if !player_number = 1 then (
+      player_accounts.data.(0) <-
+        Some (Account.deduct 10 (account_retriever player_accounts.data.(0)));
+      print_string "\n\n Welcome to Connect4, -10pt per player\n";
+      print_string "\nPlayer 1 : R\nAI : A\n";
+      )
+    else (
+      player_accounts.data.(0) <-
+        Some (Account.deduct 10 (account_retriever player_accounts.data.(0)));
+      player_accounts.data.(1) <-
+        Some (Account.deduct 10 (account_retriever player_accounts.data.(1))));
+    print_string "\n\n Welcome to Connect4, -10pt per player\n";
+    print_string "\nPlayer 1 : R\nPlayer 2 ; Y\n";
+    )
+  
   else print_string "Re-enter your input ";
 
   (* game_select; *)
