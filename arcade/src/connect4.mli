@@ -1,5 +1,5 @@
 type player
-(** The abstract type representing the player *)
+(** The abstract types representing the human and AI players *)
 
 type board
 (** The abstract type representing the board *)
@@ -24,8 +24,12 @@ val check_tie : board -> bool
     all the spaces on the board are filled. *)
 
 val make_move : player -> int * int -> board -> unit
-(** [make_move player pos] takes in a player and a position, and returns the
+(** [make_move player pos board] takes in a player and a position, and returns the
     game board after the move. *)
+
+val make_move_ai : player -> board -> int -> unit
+(** [make_move_ai player board] takes in an AI player nd returns the board 
+    after the move*)
 
 val valid_move : int -> board -> int -> bool
 (** [valid_move pos] returns whether the current move is valid by checking if
@@ -35,4 +39,7 @@ val switch_player : player -> player -> player -> player
 (** [switch_player player] switches players. *)
 
 val play_game : unit -> unit
-(** [play_game] is the main loop and runs the game. *)
+(** [play_game] is the main loop and runs the 2-player game. *)
+
+val play_game_ai : unit -> unit
+(** [play_game_ai] is the alternative main loop and runs the 1-player game. *)

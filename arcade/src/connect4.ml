@@ -3,6 +3,8 @@ type player = {
   symbol : string;
 }
 
+let player_ai = { name = "AI"; symbol = "A" }
+
 type board = string array array
 
 let winner_retriever winner =
@@ -150,10 +152,20 @@ let rec valid_move pos board height =
     true)
   else valid_move pos board (height - 1)
 
-let make_move player pos board =
+let make_move (player : player) pos board =
   let r = fst pos in
   let c = snd pos in
   board.(r).(c) <- player.symbol
+
+let make_move_ai player board height =
+  let rand_col = Random.int 6 in
+  let move =
+    if valid_move rand_col board height then
+      board.(!idx).(rand_col) <- player.symbol
+    else ()
+  in
+  move;
+  ()
 
 let switch_player current_player player1 player2 =
   if current_player = player1 then player2 else player1
@@ -186,4 +198,47 @@ let play_game () =
         print_endline "The game has ended in a tie.")
       else current_player := switch_player !current_player player1 player2)
     else print_endline "Invalid Input. Try again"
+  done
+
+let play_game_ai () =
+  let player1 = create_player "Player 1" "R" in
+  let game_board = create_board () in
+  let current_player = ref player1 in
+  let game_end = ref false in
+  let winner = ref None in
+
+  while not !game_end do
+    display_board game_board;
+    if !current_player = player1 then (
+      print_endline (!current_player.name ^ "'s turn.");
+      print_string "Enter column number (1, 6) to make a move: \n";
+      print_string "> ";
+      let col = read_int () in
+
+      if valid_move (col - 1) game_board 5 then (
+        make_move !current_player (!idx, col - 1) game_board;
+        if check_win !current_player game_board then (
+          display_board game_board;
+          winner := Some !current_player;
+          game_end := true;
+          print_endline ((winner_retriever !winner).name ^ " has won the game. "))
+        else if check_tie game_board then (
+          display_board game_board;
+          game_end := true;
+          print_endline "The game has ended in a tie.")
+        else current_player := switch_player !current_player player1 player_ai)
+      else print_endline "Invalid Input. Try again")
+    else (
+      print_endline "AI's Turn";
+      make_move_ai player_ai game_board 5;
+      if check_win player_ai game_board then (
+        display_board game_board;
+        winner := Some player_ai;
+        game_end := true;
+        print_endline "The AI has won the game.")
+      else if check_tie game_board then (
+        display_board game_board;
+        game_end := true;
+        print_endline "The game ended as a draw. ")
+      else current_player := switch_player !current_player player_ai player1)
   done
