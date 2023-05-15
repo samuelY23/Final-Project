@@ -166,6 +166,19 @@ let chess_test =
         'e';
       ]
       "cdeabfgh/cdeghcde/";
+    row_builder_test "empty" [] "|";
+    row_builder_test "empty row" [ '8' ] "|   |   |   |   |   |   |   |   |";
+    row_builder_test "non-empty row"
+      [ 'x'; '1'; 'x'; '1'; 'x'; '1'; 'x'; '1' ]
+      "| x |   | x |   | x |   | x |   |";
+    to_run_length_test "empty" [] [];
+    to_run_length_test "non-repeating" [ 'a'; 'b'; 'c' ]
+      [ (1, 'a'); (1, 'b'); (1, 'c') ];
+    to_run_length_test "repeating" [ 'a'; 'a'; 'c' ] [ (2, 'a'); (1, 'c') ];
+    to_run_length_test "repeating" [ 'a'; 'a'; 'c'; 'c' ] [ (2, 'a'); (2, 'c') ];
+    to_run_length_test "repeating" [ 'a'; 'c' ] [ (1, 'a'); (1, 'c') ];
+    to_run_length_test "repeating" [ 'j' ] [ (1, 'j') ];
+    to_run_length_test "repeating" [ ' '; ' '; ' ' ] [ (3, ' ') ];
   ]
 
 (** TESTING ACCOUNT *)
