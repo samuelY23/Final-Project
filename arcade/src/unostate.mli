@@ -16,6 +16,7 @@ type players_cards = card_data list
 (** set of cards distributed to a player*)
 
 val create_player : players_cards -> player
+val create_initstate : card_data -> player -> player -> t
 
 val get_top : t -> card_data
 (** [get_top t] gets the top card of the played cards*)
