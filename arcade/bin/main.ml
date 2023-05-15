@@ -12,6 +12,21 @@ type 'a player_account = {
 let player_accounts : 'a player_account = { data = Array.make 2 None; size = 0 }
 let data_dir_prefix = "data" ^ Filename.dir_sep
 
+let rec uno_gameloop deck = 
+  let deck_list = Unostate.distribute deck in
+  let player_1 = Unostate.create_player (List.hd (fst deck_list))in 
+  let player_2 = Unostate.create_player (List.hd (List.tl (fst deck_list))) in 
+  let current_player = ref player_1 in
+  let game_end = ref false in 
+  let winner = ref None in 
+
+  while not !game_end do 
+    let start_card = List.hd (snd deck_list) in 
+    
+    ()
+    ;
+  done
+
 let rec checkers_gameloop (board : Checkers.board) winPiece piece =
   let didWin = if winPiece = ' ' then false else true in
   match didWin with
