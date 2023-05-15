@@ -3,6 +3,8 @@ type player = {
   symbol : string;
 }
 
+let get_name player = player.name
+let get_symbol player = player.symbol
 let player_ai = { name = "AI"; symbol = "A" }
 
 type board = string array array
