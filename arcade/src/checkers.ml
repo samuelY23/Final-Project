@@ -14,7 +14,7 @@ type piece =
   | White of char
   | Black of char
 
-let default_fen = {|X1X1X1X1/1X1X1X1X/X1X1X1X1/8/8/1O1O1O1O/O1O1O1O1/1O1O1O1O|}
+let default_fen = {|x1x1x1x1/1x1x1x1x/x1x1x1x1/8/8/1o1o1o1o/o1o1o1o1/1o1o1o1o|}
 
 let default_layout =
   Util.string_to_list default_fen |> fen_slash_filter |> fenlist_to_layout []
@@ -109,4 +109,4 @@ let player_score plyr =
 let current_turn brd = brd.turn
 
 let next_piece curr =
-  if curr = 'X' then 'O' else if curr = 'O' then 'X' else ' '
+  if curr = 'x' then 'o' else if curr = 'o' then 'x' else ' '

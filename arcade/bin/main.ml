@@ -187,6 +187,7 @@ let rec main () =
         in
         print_string "")
       else print_string "Enter either 1 or 2";
+
       game_select ()
 
 and game_select () =
@@ -227,6 +228,7 @@ and game_select () =
   match read_line () with
   | exception End_of_file -> ()
   | file_name -> play_game (data_dir_prefix ^ file_name ^ ".json")
+
 
 (* game_select *)
 

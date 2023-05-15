@@ -1,5 +1,5 @@
 (* takes in a pos [a7] and return an int index in layout*)
-let pawns = ('X', 'O')
+let pawns = ('x', 'o')
 
 let is_digit = function
   | '1' .. '9' -> true
@@ -35,8 +35,8 @@ let rec winCheck layout xcount ocount =
   match layout with
   | [] -> if xcount = 0 then 'O' else if ocount = 0 then 'X' else ' '
   | h :: t ->
-      if h = 'X' then winCheck t (xcount + 1) ocount
-      else if h = 'O' then winCheck t xcount (ocount + 1)
+      if h = 'X' || h = 'x' then winCheck t (xcount + 1) ocount
+      else if h = 'O' || h = 'o' then winCheck t xcount (ocount + 1)
       else winCheck t xcount ocount
 
 let rec to_run_length (lst : char list) : (int * char) list =
@@ -114,7 +114,8 @@ let is_diagonal_adj (pos : string) (dest : string) (piece : char) (stride : int)
   let left = Char.chr (lettercode - stride) in
   let right = Char.chr (lettercode + stride) in
   let reachable =
-    if piece = 'X' then (lettnum_to_pos left down, lettnum_to_pos right down)
+    if piece = 'x' || piece = 'X' then
+      (lettnum_to_pos left down, lettnum_to_pos right down)
     else (lettnum_to_pos left up, lettnum_to_pos right up)
   in
   print_endline (dest ^ fst reachable ^ snd reachable);
@@ -155,3 +156,11 @@ let is_valid_capture move piece layout =
 
 (* let chain = pair_of_moves move [] in match chain with | [] -> | h :: t ->
    is_valid_move h piece layout 2 *)
+
+let make_King layout =
+  List.mapi
+    (fun i x ->
+      match i with
+      | n ->
+          if n < 8 && x = 'o' then 'O' else if n > 55 && x = 'x' then 'X' else x)
+    layout
