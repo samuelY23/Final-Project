@@ -12,14 +12,6 @@ type 'a player_account = {
 let player_accounts : 'a player_account = { data = Array.make 2 None; size = 0 }
 let data_dir_prefix = "data" ^ Filename.dir_sep
 
-(* let rec checkers_gameloop (board : Checkers.board) win piece = match win with
-   | true -> () | false -> print_string ("\n player " ^ String.make 1 piece ^
-   "'s turn"); let start = print_string "\n>"; read_line () in let dest =
-   print_string "\n>"; read_line () in let new_piece = Checkers.next_piece piece
-   in let board_aftermove = Checkers.new_boardstate start dest piece board in
-   Checkers.(board_aftermove |> current_state_fen |> make_board 8);
-   checkers_gameloop board_aftermove false new_piece *)
-
 let rec checkers_gameloop (board : Checkers.board) winPiece piece =
   let didWin = if winPiece = ' ' then false else true in
   match didWin with
@@ -63,9 +55,9 @@ let rec checkers_gameloop (board : Checkers.board) winPiece piece =
                    (Checkers.current_state_layout board_aftermove)
                    0 0)
                 new_piece
-
-          | Forfeit -> exit 0)
-
+          | Forfeit ->
+              print_endline (String.make 1 (Checkers.next_piece piece) ^ " wins");
+              exit 0)
       | exception e -> (
           Command.(
             match e with
@@ -212,7 +204,8 @@ and game_select () =
        Use commands [move capture] followed by\n\
        start and end positions to move or capture a piece\n\
        Use [forfeit] to quit the game\n\
-       e.g. [move c3 d4] [capture c3 e5]\n";
+       e.g. [move c3 d4] [capture c3 e5]\n\
+       If you forfeit on your turn your opponent wins\n";
     Checkers.(board_init |> current_state_fen |> make_board 8);
     checkers_gameloop Checkers.board_init ' ' 'x')
   else if game_choice = "connect4" then (
