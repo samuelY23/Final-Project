@@ -1,17 +1,5 @@
-type color =
-  | Red
-  | Blue
-  | Green
-  | Yellow
-
-type card_type =
-  | Number
-  | Wild
-  | Plus2
-  | Plus4
-  | Reverse
-  | Skip
-
+type color
+type card_type
 type card_data
 type player
 

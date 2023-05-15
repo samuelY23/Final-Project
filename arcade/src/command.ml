@@ -5,7 +5,7 @@ type action  = string list
 
 type command =
   | Move of action 
-  | Capture of action   
+  | Capture of action    
   | Forfeit
 
 

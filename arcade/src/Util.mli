@@ -41,7 +41,7 @@ val to_run_length : char list -> (int * char) list
     char) where count is the number of consecutive occurences of char in lst*)
 
 val pairs_to_string : (int * char) list -> string
-(** [pairs_to_string pairs] evaluetes to a fen string given an association list
+(** [pairs_to_string pairs] evaluates to a fen string given an association list
     of elements (count, char) where count is the number of consecutive
     occurences of char in the return string*)
 
