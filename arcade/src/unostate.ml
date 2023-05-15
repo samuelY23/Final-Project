@@ -3,10 +3,10 @@ type color =
   | Blue
   | Green
   | Yellow
+  | None
 
 type card_type =
   | Number
-  | Wild
   | Plus2
   | Plus4
   | Reverse
@@ -35,6 +35,7 @@ type t = {
 
 exception InvalidMove
 
+let create_player cards = { cards; cards_left = 7 }
 let get_top t = t.top_card
 let next_player t = List.nth t.next_list 0
 let next_players t = t.next_list
@@ -129,3 +130,52 @@ let draw_x t deck players_cards =
 
 let detect_win player = player.cards_left = 0
 let detect_uno player = player.cards_left = 1
+
+let red_cards =
+  [
+    { color = Red; number = 1; card_type = Number };
+    { color = Red; number = 3; card_type = Number };
+    { color = Red; number = 6; card_type = Number };
+    { color = Red; number = 8; card_type = Number };
+  ]
+
+let yellow_cards =
+  [
+    { color = Yellow; number = 1; card_type = Number };
+    { color = Yellow; number = 3; card_type = Number };
+    { color = Yellow; number = 4; card_type = Number };
+    { color = Yellow; number = 7; card_type = Number };
+    { color = Yellow; number = 9; card_type = Number };
+  ]
+
+let blue_cards =
+  [
+    { color = Blue; number = 1; card_type = Number };
+    { color = Blue; number = 4; card_type = Number };
+    { color = Blue; number = 7; card_type = Number };
+    { color = Blue; number = 9; card_type = Number };
+    { color = Blue; number = 8; card_type = Number };
+  ]
+
+let green_cards =
+  [
+    { color = Green; number = 1; card_type = Number };
+    { color = Green; number = 2; card_type = Number };
+    { color = Green; number = 4; card_type = Number };
+    { color = Green; number = 7; card_type = Number };
+    { color = Green; number = 9; card_type = Number };
+  ]
+
+let specialties =
+  [
+    { color = None; number = 100; card_type = Skip };
+    { color = None; number = 100; card_type = Reverse };
+    { color = None; number = 100; card_type = Plus2 };
+    { color = None; number = 100; card_type = Plus4 };
+  ]
+
+let joint : deck =
+  specialties @ specialties @ green_cards @ green_cards @ specialties
+  @ yellow_cards @ red_cards @ blue_cards @ blue_cards
+
+let shuffled = shuffle joint

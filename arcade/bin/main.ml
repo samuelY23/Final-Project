@@ -83,9 +83,8 @@ let account_retriever acct =
   | Some x -> x
 
 let player_number = ref 0
-(* Keeps track of the number of players currently playing. *)
 
-(* let rec gameloop_uno () = *)
+(* Keeps track of the number of players currently playing. *)
 
 let change_amount amt acc = Account.add amt acc
 
