@@ -1,4 +1,4 @@
-type t
+type t 
 (** The abstract type representing the account *)
 
 exception InsufficientFunds of int
