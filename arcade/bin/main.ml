@@ -85,6 +85,8 @@ let account_retriever acct =
 let player_number = ref 0
 (* Keeps track of the number of players currently playing. *)
 
+(* let rec gameloop_uno () = *)
+
 let change_amount amt acc = Account.add amt acc
 
 (** [create_account name] creates an account for a user with an initial amount
@@ -228,17 +230,14 @@ and game_select () =
       player_accounts.data.(0) <-
         Some (Account.deduct 10 (account_retriever player_accounts.data.(0)));
       print_string "\n\n Welcome to Connect4, -10pt per player\n";
-      print_string "\nPlayer 1 : R\nAI : A\n";
-      )
+      print_string "\nPlayer 1 : R\nAI : A\n")
     else (
       player_accounts.data.(0) <-
         Some (Account.deduct 10 (account_retriever player_accounts.data.(0)));
       player_accounts.data.(1) <-
         Some (Account.deduct 10 (account_retriever player_accounts.data.(1))));
     print_string "\n\n Welcome to Connect4, -10pt per player\n";
-    print_string "\nPlayer 1 : R\nPlayer 2 ; Y\n";
-    )
-  
+    print_string "\nPlayer 1 : R\nPlayer 2 ; Y\n")
   else print_string "Re-enter your input ";
 
   (* game_select; *)
