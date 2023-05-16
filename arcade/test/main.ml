@@ -226,6 +226,230 @@ let chess_test =
       ' ' false;
     isvalidmove_test "invalid move for o at g3" [ "h6"; "h5" ] 'o' beginLayout 1
       ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "a1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "a1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "a1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "a1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "b1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "b1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "b1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "b1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "c1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "c1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "c1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "c1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "d1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "d1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "d1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "d1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "e1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "e1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "e1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "e1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "f1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "f1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "f1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "f1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "g1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "g1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "g1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "g1" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "a2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "a2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "a2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "a2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "b2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "b2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "b2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "b2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "c2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "c2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "c2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "c2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "d2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "d2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "d2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "d2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "e2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "e2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "e2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "e2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "f2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "f2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "f2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "f2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "g2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "g2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "g2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "g2" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "a3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "a3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "a3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "a3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "b3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "b3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "b3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "b3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "c3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "c3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "c3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "c3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "d3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "d3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "d3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "d3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "e3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "e3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "e3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "e3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "f3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "f3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "f3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "f3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "g3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "g3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "g3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "g3" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "a4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "a4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "a4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "a4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "b4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "b4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "b4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "b4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "c4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "c4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "c4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "c4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "d4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "d4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "d4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "d4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "e4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "e4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "e4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "e4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "f4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "f4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "f4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "f4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at b6" [ "b6"; "g4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at d6" [ "d6"; "g4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at f6" [ "f6"; "g4" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at h6" [ "h6"; "g4" ] 'o' beginLayout 1
+      ' ' false;
   ]
 
 (** TESTING ACCOUNT *)
