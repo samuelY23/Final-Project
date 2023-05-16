@@ -22,13 +22,12 @@ let rec uno_gameloop deck =
   let winner = ref None in
   let start_card = List.hd (snd deck_list) in
   let init = Unostate.create_initstate start_card player_1 player_2 in
+  let unit_maker (x,y) = () in 
+  unit_maker (winner, init);
   while not !game_end do
     print_string "here are your cards ";
     let curr = !current_player in
     print_string (cards_to_string (get_players_cards curr))
-    (* let read = read_line () in let parsed = Commanduno.parse read in match
-       parsed with | Commanduno.Play x -> print_string (List.hd x ^ List.hd
-       (List.tl x)) | _ -> failwith "unimplmented"; game_end := true *)
   done
 
 let rec checkers_gameloop (board : Checkers.board) winPiece piece =
