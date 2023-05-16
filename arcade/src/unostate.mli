@@ -79,3 +79,7 @@ val detect_win : player -> bool
 val detect_uno : player -> bool
 (** [detect_uno player] takes in player and see weather they have uno, which is
     they have one card left *)
+
+val shuffled : deck
+val cards_to_string : card_data list -> string
+val get_players_cards : player -> players_cards

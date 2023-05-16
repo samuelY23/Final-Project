@@ -47,6 +47,7 @@ let create_player cards = { cards; cards_left = 7 }
 let get_top t = t.top_card
 let next_player t = List.nth t.next_list 0
 let next_players t = t.next_list
+let get_players_cards player = player.cards
 
 let reverse t =
   {
@@ -187,3 +188,18 @@ let joint : deck =
   @ yellow_cards @ red_cards @ blue_cards @ blue_cards
 
 let shuffled = shuffle joint
+
+let color_to_string color =
+  match color with
+  | Red -> "Red"
+  | Blue -> "Blue"
+  | Green -> "Green"
+  | Yellow -> "Yellow"
+  | None -> "Other"
+
+let rec cards_to_string (players_cards : players_cards) =
+  match players_cards with
+  | [] -> ""
+  | h :: t ->
+      "(" ^ color_to_string h.color ^ "," ^ string_of_int h.number ^ ")"
+      ^ cards_to_string t

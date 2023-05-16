@@ -32,8 +32,7 @@ exception InvalidMove
 exception InvalidInput
 (** Raised when bad input , wrong input format or nonexisting cord*)
 
-val parse :
-  string -> char list -> Unostate.card_data -> Unostate.card_data -> command
+val parse : string -> 'a -> command
 (** [parse str] parses a player's input into a [command], as follows. The first
     word (i.e., consecutive sequence of non-space characters) of [str] becomes
     the verb. The rest of the words, if any, become the object phrase. Examples:

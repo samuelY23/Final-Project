@@ -23,7 +23,12 @@ let rec uno_gameloop deck =
   let start_card = List.hd (snd deck_list) in
   let init = Unostate.create_initstate start_card player_1 player_2 in
   while not !game_end do
-    ()
+    print_string "here are your cards ";
+    let curr = !current_player in
+    print_string (cards_to_string (get_players_cards curr))
+    (* let read = read_line () in let parsed = Commanduno.parse read in match
+       parsed with | Commanduno.Play x -> print_string (List.hd x ^ List.hd
+       (List.tl x)) | _ -> failwith "unimplmented"; game_end := true *)
   done
 
 let rec checkers_gameloop (board : Checkers.board) winPiece piece =
@@ -242,15 +247,15 @@ and game_select () =
     if !player_number = 1 then (
       player_accounts.data.(0) <-
         Some (Account.deduct 10 (account_retriever player_accounts.data.(0)));
-      print_string "\n\n Welcome to Connect4, -10pt per player\n";
-      print_string "\nPlayer 1 : R\nAI : A\n")
+      print_string "\n\n Welcome to UNO, -10pt per player\n")
     else (
       player_accounts.data.(0) <-
         Some (Account.deduct 10 (account_retriever player_accounts.data.(0)));
       player_accounts.data.(1) <-
         Some (Account.deduct 10 (account_retriever player_accounts.data.(1))));
     print_string "\n\n Welcome to Connect4, -10pt per player\n";
-    print_string "\nPlayer 1 : R\nPlayer 2 ; Y\n")
+    print_string "\nPlayer 1 : R\nPlayer 2 ; Y\n";
+    uno_gameloop Unostate.shuffled)
   else print_string "Re-enter your input ";
 
   (* game_select; *)
