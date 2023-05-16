@@ -198,10 +198,10 @@ let rec main () =
                 ^ string_of_int (Account.balance new_account2)
                 ^ "\n")
         in
-        print_string "")
-      else print_string "Enter either 1 or 2";
-
-      game_select ()
+        print_string "";
+        game_select ())
+      else (print_string "Enter either 1 or 2";
+      main ())
 
 and game_select () =
   (* game_select *)
@@ -242,7 +242,8 @@ and game_select () =
     print_string "\n\n Welcome to Connect4, -10pt per player\n";
     print_string "\nPlayer 1 : R\nPlayer 2 ; Y\n";
     Connect4.play_game ())
-  else print_string "Re-enter your input ";
+  else (print_string "Wrong input";
+  exit 0);
 
   (* game_select; *)
   match read_line () with
