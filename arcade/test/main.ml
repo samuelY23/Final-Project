@@ -91,6 +91,11 @@ let newstr1 =
 let newstr2 =
   str2 |> Util.string_to_list |> fen_slash_filter |> fenlist_to_layout []
 
+let beginFen = {|x1x1x1x1/1x1x1x1x/x1x1x1x1/8/8/1o1o1o1o/o1o1o1o1/1o1o1o1o|}
+
+let beginLayout =
+  beginFen |> Util.string_to_list |> fen_slash_filter |> fenlist_to_layout []
+
 let wincheck_test (name : string) (k : char list) expected_output : test =
   name >:: fun _ -> assert_equal expected_output (Util.winCheck k 0 0)
 
@@ -179,6 +184,48 @@ let chess_test =
     to_run_length_test "repeating" [ 'a'; 'c' ] [ (1, 'a'); (1, 'c') ];
     to_run_length_test "repeating" [ 'j' ] [ (1, 'j') ];
     to_run_length_test "repeating" [ ' '; ' '; ' ' ] [ (3, ' ') ];
+    isvalidmove_test "valid move for x at c3" [ "c3"; "d4" ] 'x' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for x at c3" [ "c3"; "b4" ] 'x' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for x at e3" [ "a3"; "b4" ] 'x' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for x at e3" [ "e3"; "d4" ] 'x' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for x at e3" [ "e3"; "f4" ] 'x' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for x at g3" [ "g3"; "f4" ] 'x' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for x at g3" [ "g3"; "h4" ] 'x' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for o at c3" [ "d6"; "e5" ] 'o' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for o at c3" [ "d6"; "c5" ] 'o' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for o at e3" [ "b6"; "c5" ] 'o' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for o at e3" [ "f6"; "e5" ] 'o' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for o at e3" [ "f6"; "g5" ] 'o' beginLayout 1
+      ' ' true;
+    isvalidmove_test "valid move for o at g3" [ "h6"; "g5" ] 'o' beginLayout 1
+      ' ' true;
+    isvalidmove_test "invalid move for x at c3" [ "c3"; "c4" ] 'x' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for x at e3" [ "a3"; "a4" ] 'x' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for x at e3" [ "e3"; "e4" ] 'x' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for x at g3" [ "g3"; "g4" ] 'x' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at c3" [ "b6"; "b5" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at c3" [ "d6"; "d5" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at e3" [ "f6"; "f5" ] 'o' beginLayout 1
+      ' ' false;
+    isvalidmove_test "invalid move for o at g3" [ "h6"; "h5" ] 'o' beginLayout 1
+      ' ' false;
   ]
 
 (** TESTING ACCOUNT *)
