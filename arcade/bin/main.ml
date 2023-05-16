@@ -22,7 +22,7 @@ let rec uno_gameloop deck =
   let winner = ref None in
   let start_card = List.hd (snd deck_list) in
   let init = Unostate.create_initstate start_card player_1 player_2 in
-  let unit_maker (x,y) = () in 
+  let unit_maker (x, y) = () in
   unit_maker (winner, init);
   while not !game_end do
     print_string "here are your cards ";
@@ -205,7 +205,7 @@ let rec main () =
 
 and game_select () =
   (* game_select *)
-  print_string "\n\nSelect a game?\n- checkers\n- uno\n- connect4\n>";
+  print_string "\n\nSelect a game?\n- checkers\n- connect4\n>";
   let game_choice = read_line () in
   if game_choice = "checkers" then (
     if !player_number = 1 then
