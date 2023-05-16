@@ -1,0 +1,8 @@
+Hello,
+
+We have implemented all of the functionality for Checkers, connnect4 and Uno, however
+we couldnt finish the game loop for Uno. We have the full functionality of a working uno, however we unfortunately
+didnt have time to allow for it in game loop .
+
+Best,
+Team
