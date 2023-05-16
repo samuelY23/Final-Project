@@ -193,11 +193,13 @@ let play_game () =
         display_board game_board;
         winner := Some !current_player;
         game_end := true;
-        print_endline ((winner_retriever !winner).name ^ " has won the game. "))
+        print_endline ((winner_retriever !winner).name ^ " has won the game. ");
+        exit 0)
       else if check_tie game_board then (
         display_board game_board;
         game_end := true;
-        print_endline "The game has ended in a tie.")
+        print_endline "The game has ended in a tie.";
+        exit 0)
       else current_player := switch_player !current_player player1 player2)
     else print_endline "Invalid Input. Try again"
   done
@@ -223,11 +225,13 @@ let play_game_ai () =
           display_board game_board;
           winner := Some !current_player;
           game_end := true;
-          print_endline ((winner_retriever !winner).name ^ " has won the game. "))
+          print_endline ((winner_retriever !winner).name ^ " has won the game. ");
+          exit 0)
         else if check_tie game_board then (
           display_board game_board;
           game_end := true;
-          print_endline "The game has ended in a tie.")
+          print_endline "The game has ended in a tie.";
+          exit 0)
         else current_player := switch_player !current_player player1 player_ai)
       else print_endline "Invalid Input. Try again")
     else (

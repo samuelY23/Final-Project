@@ -10,6 +10,7 @@ type piece
 val default_fen : string
 (** [deafualt_fen] The initial piece arrangement of the checkers board as a
     Forsyth–Edwards Notation (FEN) string *)
+    
 
 val board_init : board
 (** [board_init] The initial board state as a board record type containing
